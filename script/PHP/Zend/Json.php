@@ -24,7 +24,7 @@
  *
  * @see Zend_Json_Expr
  */
-require_once 'Zend/Json/Expr.php';
+require_once 'Json/Expr.php';
 
 
 /**

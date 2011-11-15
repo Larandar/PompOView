@@ -1,21 +1,27 @@
 <?
+	// Demande une variable $SCRIPT_DIRECTORY
 	// Fonction diverses 
 	function array_moy($ar){return (float)(array_sum($ar)/count($ar));}
 	function array_getdef($options, $param, $def = null){return ( isset($options[$param]) )?$options[$param]:$def ;}
-	function println($el){print($el.PHP_EOL);};
+	
+	require_once($GLOBALS['SCRIPT_DIRECTORY'].'PHP/Coloration.class.php');
 	
 	class Pompoview{
 		
-		var $data = array();
-		var $trace = array();
-		var $corpus = array();
+		public $data = array();
+		public $trace = array();
+		public $corpus = array();
 		
-		var $col;
-		var $lig;
+		public $col;
+		public $lig;
 		
-		var $option;
+		public $option;
+		
+		public $prof = 3;
+		public $color;
 		
 		public function __construct($options = array()){
+			$this->color = new Coloration();
 			$this->setOptions($options);
 		}
 		
@@ -24,13 +30,34 @@
 		}
 		
 		function fromJSON($filePath){
-			$out_json = (array)json_decode(file_get_contents($filePath));
-			$this->data = (array)$out_json['corpus_scores'];
-			$this->trace = (array)$out_json['signature'];
-			$this->corpus = (array)$out_json['filenames'];
+			require_once($GLOBALS['SCRIPT_DIRECTORY'].'PHP/JSON.utils.php');
+			require_once($GLOBALS['SCRIPT_DIRECTORY'].'PHP/Zend/Json.php');
+			
+			
+			$out_json = file_get_contents($filePath);
+			
+			$out_json = JSON::serialize($out_json);
+			
+			$json = Zend_Json::decode($out_json);
+			
+			$this->data   = $json['corpus_scores'];
+			$this->trace  = $json['signature'];
+			$this->corpus = $json['filenames'];
+			
+			
+			$this->genereColor();
 		}
 		
-		function export(){
+		public function genereColor()
+		{
+			$this->color->genereColor($this->data,$this->prof);
+		}
+		
+		public function traitement($value){
+			return sprintf('<td style="background:%s;">%.3f</td>',$this->color->getColorOf($value),$value);
+		}
+		
+		public function export(){
 			function segment($nb,$max,$min = 0){
 				$ret = array($min);
 				for($i=1;$i<$nb;$i++){
@@ -38,19 +65,18 @@
 				}
 				return $ret;
 			}
-			function couleur($el,$pas = 4){
-				$segments = segment($pas,120,0);
-				return sprintf('hsl(%d,100%%,50%%)',$segments[round($el*$pas)-1]);
-			}
-			function traitement($el){
-				return '<td style="background:'.couleur($el,4).';">'.sprintf('%.3f',$el).'</td>';
-			}
-			println('<table>');
+			print('<table>'.PHP_EOL);
 			foreach($this->data as $key => $subarray){
-				println( '<tr>'.join(array_map('traitement',$subarray)).'</tr>' );
+				$join = '<tr>';
+				foreach($subarray as $value){
+					$join .= $this->traitement($value);
+				}
+				$join .= '</tr>';
+				print($join.PHP_EOL);
 			};
-			println('</table>');
+			print('</table>'.PHP_EOL);
 		}
+		
 		function exportAll(){
 			print_r($this->trace);
 			print_r($this->corpus);

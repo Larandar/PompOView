@@ -1,3 +1,6 @@
+<?
+	$INDEX_DIRECTORY = getcwd().'/';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

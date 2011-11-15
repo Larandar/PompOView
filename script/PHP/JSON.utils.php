@@ -21,17 +21,15 @@
 			);
 			return $a[json_last_error()];
 		}
-		static public function serialize($JSONPath){
-			$JSON = file_get_contents($JSONPath);
-			
+		static public function serialize($JSON){
 			// PHP suporte:
 			//  - Les dictionnaires emboité
 			// PHP ne suporte pas:
 			//  - les attributs marquer via ' '   -_-'
 			//  - "," en fin de dictionnaire/list ;)
 			//  - True a la place de true
-			$JSON = preg_replace(array('/\"\s*\{(.*)\}\s*\"/','/\'/','/\,\s*(\]|\})/','/True/'),array('{\1}','"','\1','true'),$JSON);
 			
+			preg_replace(array('/\"\s*\{(.*)\}\s*\"/','/\'/','/\,\s*(\]|\})/','/True/'),array('{\1}','"','\1','true'),$JSON);
 			return $JSON;
 		}
 	}

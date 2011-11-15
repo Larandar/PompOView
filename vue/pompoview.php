@@ -1,8 +1,16 @@
 <?
-	include_once('../script/php/PompOView.package.php');
+	$INDEX_DIRECTORY = getcwd().'/../';
+	$SCRIPT_DIRECTORY = $INDEX_DIRECTORY.'script/';
+	
+	global $INDEX_DIRECTORY;
+	global $SCRIPT_DIRECTORY;
+?>
+<?
+
+	include_once($INDEX_DIRECTORY.'script/PHP/PompOView.package.php');
 	$pompoview = new Pompoview();
 	
-	$pompoview->fromJSON('../'.(($_POST['json']!=NULL)?$_POST['json']:'file/out.test.json'));
+	$pompoview->fromJSON($INDEX_DIRECTORY.(($_POST['json']!=NULL)?$_POST['json']:'file/out.test.json'));
 ?>
 <!DOCTYPE html>
 <html lang="fr">
