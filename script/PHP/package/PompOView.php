@@ -5,6 +5,7 @@
 	function array_getdef($options, $param, $def = null){return ( isset($options[$param]) )?$options[$param]:$def ;}
 	
 	require_once($GLOBALS['SCRIPT_DIRECTORY'].'PHP/class/Coloration.php');
+	require_once($GLOBALS['SCRIPT_DIRECTORY'].'PHP/class/Clustering.php');
 	
 	class Pompoview{
 		
@@ -17,20 +18,26 @@
 		
 		public $option;
 		
-		public $prof;
 		public $color;
+		public $prof;
+		public $clustering;
 		
 		public function __construct($options = array()){
 			$this->setOptions($options);
 		}
 		
 		function setOptions($options){
-			$this->options['color'] = array_getdef($options,'color','ColorationEmb');
+			$this->options = array(
+				'clustering_dist' => array_getdef($options, 'clustering_dist','min'),
+				'clustering' => array_getdef($options,'clustering','HierarchicalClustering'),
+				'color'      => array_getdef($options,'color'     ,'ColorationEmb'),
+				'prof'       => array_getdef($options,'prof'      ,3)
+			);
+			
+			$this->clustering_dist  = $this->options['clustering_dist'];
+			$this->clustering       = new $this->options['clustering']($this->clustering_dist);
 			$this->color            = new $this->options['color']();
-			$this->prof             = array_getdef($options,'prof',3);
-			
-			$this->options = $options;
-			
+			$this->prof             = $this->options['prof'];
 		}
 		
 		function fromJSON($filePath){
@@ -57,29 +64,39 @@
 			$this->color->genereColor($this->data,$this->prof);
 		}
 		
+		public function setHide($toHide)
+		{
+			$this->clustering->setHide($toHide);
+		}
+		
 		public function traitement($value){
 			return sprintf('<td style="background:%s;">%.3f</td>',$this->color->getColorOf($value),$value);
 		}
 		
 		public function exportMatrix(){
-			function segment($nb,$max,$min = 0){
-				$ret = array($min);
-				for($i=1;$i<$nb;$i++){
-					$ret[] = $min + ($i+1) * ($max - $min) / $nb ;
-				}
-				return $ret;
-			}
+			
+			$this->clustering->generation($this->data);
+			$order = $this->clustering->getOrder();
+			
 			print('<table>'.PHP_EOL);
+			
+			// Première ligne :: Header
 			$header = '<tr><td style="text-align:center;">*</td>';
-			foreach($this->corpus as $key => $value){
+			foreach($order as $key){
+				$value = $this->corpus[$key];
 				$header .= sprintf('<td><abbr title="%s">%d</abbr></td>',$value,$key+1);
 			}
 			$header .= '</tr>'.PHP_EOL;
 			print($header);
-			foreach($this->data as $key => $subarray){
+			
+			foreach($order as $key){
+				$subarray = $this->data[$key];
+				
 				$join = '<tr>';
 				$join .= sprintf('<td><abbr title="%s">%d</abbr></td>',$this->corpus[$key],$key+1);
-				foreach($subarray as $value){
+				
+				foreach($order as $key){
+					$value = $subarray[$key];
 					$join .= $this->traitement($value);
 				}
 				$join .= '</tr>';
