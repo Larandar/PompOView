@@ -33,7 +33,8 @@
 		</header>
 		<div id="main" role="main">
 			<?if(json_last_error() != JSON_ERROR_NONE){?><div class="error"><?=string_json_last_error().' ['.json_last_error().']';?></div><?};?>
-			<?$pompoview->export();?>
+			<?$pompoview->exportMatrix();?>
+			<?$pompoview->exportChart();?>
 		</div>
 		<footer>
 		
