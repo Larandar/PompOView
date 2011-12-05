@@ -26,7 +26,7 @@
 				<form action="vue/pompoview.php" method="post" accept-charset="utf-8">
 					<table class="input">
 						<col width="25%"/><col width="70%"/>
-						<tr><td>Fichier Sources :</td><td><input type="text" value="data/out.test.json" name="json"></td></tr>
+						<tr><td>Fichier Sources :</td><td><input type="text" value="data/corpus_haskell/out.test.json" name="json"></td></tr>
 					</table>
 					<p><input type="submit" value="Continue &rarr;"></p>
 				</form>
