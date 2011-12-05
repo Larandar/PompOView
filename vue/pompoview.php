@@ -7,7 +7,7 @@
 ?>
 <?
 
-	include_once($INDEX_DIRECTORY.'script/PHP/PompOView.package.php');
+	include_once($INDEX_DIRECTORY.'script/PHP/package/PompOView.php');
 	$pompoview = new Pompoview();
 	
 	$pompoview->fromJSON($INDEX_DIRECTORY.(($_POST['json']!=NULL)?$_POST['json']:'file/out.test.json'));
