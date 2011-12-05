@@ -6,7 +6,7 @@
 	class Tableau
 	{
 		public static function cutMoyenne($array){
-			if(count($array) == 1){return $array;}
+			if(count($array) <= 1){return $array;}
 			$_return = array(array(),array());
 			$moy = array_sum($array)/count($array);
 			
