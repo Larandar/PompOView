@@ -8,7 +8,9 @@
 <?
 
 	include_once($INDEX_DIRECTORY.'script/PHP/package/PompOView.php');
-	$pompoview = new Pompoview();
+	$pompoview = new Pompoview(array(
+		'clustering_dist' => 'min'
+	));
 	
 	$pompoview->fromJSON($INDEX_DIRECTORY.(($_POST['json']!=NULL)?$_POST['json']:'data/corpus_haskell/out.test.json'));
 ?>
