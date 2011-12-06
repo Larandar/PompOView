@@ -28,16 +28,18 @@
 		
 		function setOptions($options){
 			$this->options = array(
+				'clustering'      => array_getdef($options,'clustering','HierarchicalClustering'),
 				'clustering_dist' => array_getdef($options, 'clustering_dist','min'),
-				'clustering' => array_getdef($options,'clustering','HierarchicalClustering'),
-				'color'      => array_getdef($options,'color'     ,'ColorationEmb'),
-				'prof'       => array_getdef($options,'prof'      ,3)
+				'coloration'           => array_getdef($options,'coloration','ColorationEmb'),
+				'coloration_prof'      => array_getdef($options,'coloration_prof',3)
 			);
 			
 			$this->clustering_dist  = $this->options['clustering_dist'];
 			$this->clustering       = new $this->options['clustering']($this->clustering_dist);
-			$this->color            = new $this->options['color']();
-			$this->prof             = $this->options['prof'];
+			
+			
+			$this->coloration_prof  = $this->options['coloration_prof'];
+			$this->coloration       = new $this->options['coloration']($this->coloration_prof);
 		}
 		
 		function fromJSON($filePath){
@@ -61,7 +63,7 @@
 		
 		public function genereColor()
 		{
-			$this->color->genereColor($this->data,$this->prof);
+			$this->coloration->genereColor($this->data,$this->coloration_prof);
 		}
 		
 		public function setHide($toHide)
@@ -70,7 +72,7 @@
 		}
 		
 		public function traitement($value){
-			return sprintf('<td style="background:%s;">%.3f</td>',$this->color->getColorOf($value),$value);
+			return sprintf('<td style="background:%s;">%.3f</td>',$this->coloration->getColorOf($value),$value);
 		}
 		
 		public function exportMatrix(){

@@ -17,8 +17,7 @@
 		public $matrice = array(array(0));
 		public $color;
 		
-		public function __construct($matrice = NULL,$param = NULL){
-			($matrice != NULL)?($this->matrice = $matrice):1;
+		public function __construct($param = NULL){
 			($param != NULL)?($this->param = $param):1;
 			$this->genereColor();
 		}
