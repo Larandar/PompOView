@@ -1,0 +1,7 @@
+TODO Création d'un sous-corpus avec nouveau JSON
+TODO Proposition automatique du nombre de classes de couleurs
+TODO Conserver les paramètres du PompOView dans le formulaire
+TODO Détection de sous élément du corpus par étude du PATH
+TODO Front Controler avec URL rewriting
+
+FIXME Coloration des couleurs mal générées
