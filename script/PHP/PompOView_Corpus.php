@@ -3,8 +3,8 @@
 	function array_moy($ar){return (float)(array_sum($ar)/count($ar));}
 	function array_getdef($options, $param, $def = null){return ( isset($options[$param]) )?$options[$param]:$def ;}
 	
-	require_once('./PompOView_Corpus/Coloration.php');
-	require_once('./PompOView_Corpus/Clustering.php');
+	require_once('PompOView_Corpus/Coloration.php');
+	require_once('PompOView_Corpus/Clustering.php');
 	
 	class PompOView_Corpus{
 		
@@ -42,8 +42,8 @@
 		}
 		
 		function fromJSON($filePath){
-			require_once('./PompOView_Corpus/JSON.php');
-			require_once('./PompOView_Corpus/Zend/Json.php');
+			require_once('PompOView_Corpus/JSON.php');
+			require_once('PompOView_Corpus/Zend/Json.php');
 			
 			
 			$out_json = file_get_contents($filePath);
@@ -109,5 +109,15 @@
 		public function exportChart(){
 			
 		}
+        
+        public function exportForm()
+        {
+            # code...
+        }
+        
+        public static function defaultForm()
+        {
+            # code...
+        }
 	};
 ?>
