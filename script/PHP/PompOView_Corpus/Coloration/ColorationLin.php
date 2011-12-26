@@ -1,7 +1,7 @@
 <?
 class ColorationLin extends Coloration
 {
-		
+	
 	public $param = 3;
 	public $min = 0;
 	public $max = 120;
@@ -12,6 +12,7 @@ class ColorationLin extends Coloration
 		$this->param = ($matrice !== NULL)?$param:$this->param;
 		$values = Matrice::triangularValues($this->matrice,true);
 		$color = array();
+		
 		for($i = 0; $i < $this->param; $i++){
 			$color[] = array(
 				'min' => $i/$this->param,
