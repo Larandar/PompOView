@@ -1,7 +1,29 @@
-html{background:#EEE;}
-header{text-align:center;}header h1{font-size:50px;text-shadow:2px 2px 2px rgba(200, 200, 200, 0.5);}
-body{font:Constantia,"Hoefler Text","Adobe Caslon Pro",Baskerville,Georgia,Times,serif;color:#999;}
-h1,h2,h3{width:100%;text-align:center;background:#DDD;}
-table.input{margin:auto;}
-input{width:100%;}
-td,tr{margin:2px;text-align:center;}
+html {
+  background: #EEE;
+}
+header {
+  text-align: center;
+}
+header h1 {
+  font-size: 50px;
+  text-shadow: 2px 2px 2px rgba(200, 200, 200, 0.5);
+}
+body {
+  font: Constantia, "Hoefler Text", "Adobe Caslon Pro", Baskerville, Georgia, Times, serif;
+  color: #999;
+}
+h1, h2, h3 {
+  width: 100%;
+  text-align: center;
+  background: #DDD;
+}
+table.input {
+  margin: auto;
+}
+input {
+  width: 100%;
+}
+td, tr {
+  margin: 2px;
+  text-align: center;
+}
