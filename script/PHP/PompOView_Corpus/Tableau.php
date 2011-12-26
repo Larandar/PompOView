@@ -6,12 +6,12 @@
 	class Tableau
 	{
 		public static function cutMoyenne($array){
-			if(count($array) <= 1){return $array;}
+			if(count($array) <= 1){return (array)$array;}
 			$_return = array(array(),array());
 			$moy = array_sum($array)/count($array);
 			
 			foreach($array as $val){
-				$k = ($val<=$moy?0:1);
+				$k = ($val<=$moy)?0:1;
 				$_return[$k][] = $val;
 			}
 			
@@ -24,7 +24,7 @@
 				foreach($return as $array){
 					$moy = Tableau::cutMoyenne($array);
 					foreach($moy as $_){
-						$stock[]=$_;
+						$stock[] = (array)$_;
 					}
 				}
 				$return = $stock;

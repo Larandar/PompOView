@@ -35,6 +35,9 @@
 				elseif($value == 0){
 					return $this->color[0]['color'];
 				}
+				else{
+					return "hsl(0,100%,10%)"
+				}
 			}
 			return $this->color[0];
 		}
