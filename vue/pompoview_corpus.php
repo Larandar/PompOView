@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<?
+
+<?php
 	if (! isset($INDEX_DIRECTORY)) {
 		global $INDEX_DIRECTORY;
 		global $SCRIPT_DIRECTORY;
@@ -30,6 +30,7 @@
 		$UNDEFINE = TRUE;
 	}
 ?>
+<!DOCTYPE html>
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
@@ -41,13 +42,16 @@
 		<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8">
 	</head>
 	<body>
+		<header>
+			Pomp-O-View :: Corpus
+		</header>
 		<div id="container">
 			<?php if ($UNDEFINE): ?>
 			<div id="form_container">
 				<h1>
 					<a>Pomp O View</a>
 				</h1>
-				<form method="post" action="pompoview_corpus.php">
+				<form method="post" action="index.php?mode=pompoview_corpus">
 					<div class="form_description">
 						<h2>
 							Pomp O View
