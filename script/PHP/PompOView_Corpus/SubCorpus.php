@@ -1,5 +1,20 @@
 <?
-	function subCorpusJSON($jsonOrig,$toErase)
+	// Fonctions Incternes
+	function file_set($file,$content){
+		$file = fopen($file,'w');
+		$rez = fputs($file,$content);
+		fclose($file);
+		return $rez;
+	}
+	
+	
+	/* 
+	 * Fonction SubCorpus
+	 * @param  string jsonOrig : Chemin du fichier JSON a l'origine du corpus
+	 * @param  array toErase : Liste des index de fichier a enlevé du json
+	 * @return JSON Formated String
+	 */
+	function subCorpusJSON($jsonOrig, array $toErase)
 	{
 		require_once("JSON.php");
 		$json = JSON::serialize(file_get_contents($jsonOrig));
@@ -26,11 +41,5 @@
 		}
 		
 		return json_encode($corpus);
-	}
-	function file_set($file,$content){
-		$file = fopen($file,'w');
-		$rez = fputs($file,$content);
-		fclose($file);
-		return $rez;
 	}
 
