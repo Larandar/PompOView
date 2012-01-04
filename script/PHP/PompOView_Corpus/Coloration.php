@@ -28,18 +28,17 @@
 		public abstract function genereColor($matrice = NULL,$param = NULL);
 		
 		public function getColorOf($value){
+			if($value == 0){
+				return $this->color[0]['color'];
+			}
+			
 			foreach($this->color as $color){
 				if($color['min'] <= $value and $color['max'] >= $value){
 					return $color['color'];
 				}
-				elseif($value == 0){
-					return $this->color[0]['color'];
-				}
-				else{
-					return "hsl(0,100%,10%)"
-				}
 			}
-			return $this->color[0];
+			// Indique une érreur dans le parcours.
+			return "hsl(0,100%,10%)";
 		}
 	}
 
