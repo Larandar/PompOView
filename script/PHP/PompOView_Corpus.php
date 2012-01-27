@@ -1,4 +1,4 @@
-<?
+<?php
 	// Fonction diverses 
 	function array_moy($ar){return (float)(array_sum($ar)/count($ar));}
 	function array_getdef($options, $param, $def = null){return ( isset($options[$param]) )?$options[$param]:$def ;}

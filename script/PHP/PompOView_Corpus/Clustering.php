@@ -1,4 +1,4 @@
-<?
+<?php
 	/* Fonctions de fusion des lignes:
 	 * déja disponible : 'min' 'max'
 	 * potentiellement toute fonction de R2 -> R (Des test sur 'pow' on été effectuer... pas trés concluant)

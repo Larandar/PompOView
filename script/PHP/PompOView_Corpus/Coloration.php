@@ -1,4 +1,4 @@
-<?
+<?php
 	/*
 	 * PompOView :: Coloration
 	 * Module de gestion de la coloration des sorties en tableaux.

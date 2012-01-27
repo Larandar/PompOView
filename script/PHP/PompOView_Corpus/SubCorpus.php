@@ -1,4 +1,4 @@
-<?
+<?php
 	// Fonctions Incternes
 	function file_set($file,$content){
 		$file = fopen($file,'w');

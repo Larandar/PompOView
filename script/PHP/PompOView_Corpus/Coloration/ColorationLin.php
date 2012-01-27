@@ -1,4 +1,4 @@
-<?
+<?php
 class ColorationLin extends Coloration
 {
 	

@@ -1,4 +1,4 @@
-<?
+<?php
 	/*
 	 * JSON Tools by Adrien 'Larandar' Dudouit-Exposito
 	 * Licences MIT

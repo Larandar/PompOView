@@ -1,4 +1,4 @@
-<?
+<?php
 	/**
 	 * GroupInCorpus est un package qui permet de détecter et isoler les groupes de documents dans une arborescence
 	 * La fonction principale est "computeGroupIn" qui prend en argument une liste de chemin de fichiers et retourne

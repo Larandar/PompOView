@@ -1,4 +1,4 @@
-<?
+<?php
 	$INDEX_DIRECTORY = getcwd()."/";
 	$SCRIPT_DIRECTORY = getcwd()."/script/";
 	$requestURI = explode('/', $_SERVER["REQUEST_URI"]);
