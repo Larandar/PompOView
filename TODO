@@ -3,6 +3,11 @@ TODO Conserver les paramètres du PompOView dans le formulaire
 TODO Front Controler avec URL rewriting
 TODO Formulaire de création d'un sous corpus
 
+TODO Statistiques du corpus
+TODO Script sous corpus en CGI
+TODO Tableau de projets et plus de textes
+TODO Classe de distance pour Clustering et Comparaison de corpus
+
 
 CHANGED Détection de sous élément du corpus par étude du PATH
 CHANGED Création d'un sous-corpus avec nouveau JSON
