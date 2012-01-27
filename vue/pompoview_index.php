@@ -17,7 +17,7 @@
 		<div id="main" role="main">
 			<div>
 				<h2>Pomp-O-View :: Tableau de bord</h2>
-				<form action="vue/pompoview_corpus.php" method="post" accept-charset="utf-8">
+				<form action="index.php?mode=pompoview_corpus" method="post" accept-charset="utf-8">
 					<table class="input">
 						<col width="25%"/><col width="70%"/>
 						<tr><td>Fichier Sources :</td><td><input type="text" value="data/corpus_haskell/out.test.json" name="json"></td></tr>

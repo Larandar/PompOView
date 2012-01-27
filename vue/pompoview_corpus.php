@@ -1,18 +1,10 @@
-
 <?php
-	if (! isset($INDEX_DIRECTORY)) {
-		global $INDEX_DIRECTORY;
-		global $SCRIPT_DIRECTORY;
-		
-		$INDEX_DIRECTORY = getcwd().'/../';
-		$SCRIPT_DIRECTORY = $INDEX_DIRECTORY.'script/';
-	}
 	
 	include_once($SCRIPT_DIRECTORY.'PHP/PompOView_Corpus.php');
 	
-    $UNDEFINE = FALSE;
-    
-	if (isset($_POST['json']) and isset($_POST['clustering'])) {
+	$UNDEFINE = FALSE;
+	
+	if ( isset($_POST['json']) and isset($_POST['clustering'])) {
 		// L'ensemble des options est passer par formulaire
 		$pompoview = new PompOView_Corpus(array(
 			'clustering'	  => $_POST['clustering'],
@@ -27,6 +19,7 @@
 		$pompoview->fromJSON($INDEX_DIRECTORY.$_POST['json']);
 	}
 	else {
+		$pompoview = new PompOView_Corpus(array());
 		$UNDEFINE = TRUE;
 	}
 ?>
@@ -39,14 +32,14 @@
 		<meta name="description" content="">
 		<meta name="author" content="Adrien 'Larandar' Dudouit-Exposito, Alexandre 'Bibi' Legoupil">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
 	</head>
 	<body>
 		<header>
 			Pomp-O-View :: Corpus
 		</header>
 		<div id="container">
-			<?php if ($UNDEFINE): ?>
+			<?php if (true): ?>
 			<div id="form_container">
 				<h1>
 					<a>Pomp O View</a>
@@ -113,9 +106,9 @@
 					</ul>
 				</form>
 			</div>
-			<?php else: ?>
+			<?php /*else:*/ ?>
 				<div id="main" role="main">
-					<?if(json_last_error() != JSON_ERROR_NONE){?><div class="error"><?=string_json_last_error().' ['.json_last_error().']';?></div><?};?>
+					<?if(json_last_error() != JSON_ERROR_NONE){?><div class="error"><?php echo string_json_last_error().' ['.json_last_error().']';?></div><?};?>
 					<?$pompoview->exportMatrix();?>
 					<?$pompoview->exportChart();?>
 					<div id="form_container">

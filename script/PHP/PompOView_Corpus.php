@@ -27,18 +27,18 @@
 		
 		function setOptions($options){
 			$this->options = array(
-				'clustering'      => array_getdef($options,'clustering','HierarchicalClustering'),
+				'clustering'	  => array_getdef($options,'clustering','HierarchicalClustering'),
 				'clustering_dist' => array_getdef($options, 'clustering_dist','min'),
-				'coloration'           => array_getdef($options,'coloration','ColorationEmb'),
-				'coloration_prof'      => array_getdef($options,'coloration_prof',3)
+				'coloration'		   => array_getdef($options,'coloration','ColorationEmb'),
+				'coloration_prof'	  => array_getdef($options,'coloration_prof',3)
 			);
 			
 			$this->clustering_dist  = $this->options['clustering_dist'];
-			$this->clustering       = new $this->options['clustering']($this->clustering_dist);
+			$this->clustering	   = new $this->options['clustering']($this->clustering_dist);
 			
 			
 			$this->coloration_prof  = $this->options['coloration_prof'];
-			$this->coloration       = new $this->options['coloration']($this->coloration_prof);
+			$this->coloration	   = new $this->options['coloration']($this->coloration_prof);
 		}
 		
 		function fromJSON($filePath){
@@ -109,15 +109,9 @@
 		public function exportChart(){
 			
 		}
-        
-        public function exportForm()
-        {
-            # code...
-        }
-        
-        public static function defaultForm()
-        {
-            # code...
-        }
+		
+		public static function exportForm($val = null){
+			# code...
+		}
 	};
 ?>
