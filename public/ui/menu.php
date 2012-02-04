@@ -1,0 +1,1 @@
+<a href="<?php echo SERVER_URL ; ?>?main=index">Index</a>
