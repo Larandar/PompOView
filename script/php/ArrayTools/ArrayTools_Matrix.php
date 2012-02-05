@@ -1,9 +1,8 @@
 <?php
 	/**
-	 * Des fonctions s'utilisant sur les matrices
+	 * ArrayTools_Matrix regroupe certaines fonctions s'utilisant sur des tableaux bi-dimensionnels
 	 */
-	
-	class ArrayTools_Matrix {
+	abstract class ArrayTools_Matrix {
 		/**
 		 * Retourne la valeur et les indices du minimum d'une matrice
 		 */
@@ -34,6 +33,19 @@
 				unset($matrix[$key][$i]);
 			}
 			return $matrix;
+		}
+		
+		/**
+		 * 
+		 */
+		public static function triangularValues($matrix) {
+			$values = array();
+			foreach($matrix as $i => $sub){ 
+				foreach($sub as $j => $elem){
+					if($i>$j){$values[]=$elem;};
+				}
+			}
+			return $values;
 		}
 	}
 	
