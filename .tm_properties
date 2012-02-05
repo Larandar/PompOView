@@ -1,0 +1,6 @@
+projectName      = "PompOView"
+
+projectDirectory     = "$CWD"
+windowTitle          = "$TM_DISPLAYNAME - $projectName"
+
+exclude = "{$exclude,Zend}"
