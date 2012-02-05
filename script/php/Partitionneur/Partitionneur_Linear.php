@@ -13,8 +13,8 @@
 			$partition = array();
 			for ($i=0; $i < $param; $i++) { 
 				$partition[] = array(
-					"min" =  $i/$param ,
-					"max" = ($i+1)/$param
+					"min" =>  ($i/$param) ,
+					"max" => ($i+1)/$param
 				);
 			}
 			
