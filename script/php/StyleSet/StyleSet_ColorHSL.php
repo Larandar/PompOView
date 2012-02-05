@@ -2,7 +2,7 @@
 	/**
 	 * 
 	 */
-	class StyleSet_ColorHSL extends Style {
+	class StyleSet_ColorHSL extends StyleSet {
 		
 		public static function genereStyle($I,$N) {
 			$hsl = 'hsl('.(120*$I/($N-1)).',100,50)'    ;
