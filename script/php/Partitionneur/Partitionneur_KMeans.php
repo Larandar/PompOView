@@ -41,7 +41,7 @@
 		}
 		
 		public static function estimation($N) { return pow(2,$N) ; }
-		public static function recommended($N) { return floor(log($N)/log(2) + 1) ; }
+		public static function recommended($N) { return floor(log(sqrt($N))/log(2)) ; }
 	}
 	
 ?>
