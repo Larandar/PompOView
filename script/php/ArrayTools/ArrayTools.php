@@ -53,7 +53,6 @@
 					$return[1][] = $value;
 				}
 			}
-			print_r($return);
 			return $return;
 		}
 	}

@@ -23,8 +23,6 @@
 				}
 			}
 			
-			print_r($list);
-			
 			$partition = array();
 			foreach ($list as $subarray) {
 				$partition[] = array(
