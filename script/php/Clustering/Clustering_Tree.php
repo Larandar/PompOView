@@ -32,11 +32,11 @@
 			return (array) $this->_name;
 		}
 		public function getValue($in) {
-			$in = explode($in,':');
 			$return = array();
 			foreach ($in as $val) {
 				if (array_key_exists($val, $this->_value)) {
 					$return[] = $this->_value[$val];
+			$in = explode(':',$in);
 				}
 			}
 			return $return;
