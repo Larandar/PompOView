@@ -5,8 +5,6 @@
 	 * Utilisation 
 	 */
 	
-	require_once "Distance.php";
-	
 	/**
 	 * 
 	 */
@@ -17,7 +15,7 @@
 		protected $dist;
 		
 		/* Constructeur unique pour toutes les classes sauf cas exeptionnels */
-		public function __construct($data,$dist = "Distance::avg") {
+		public function __construct($data,$dist = "Distance::min") {
 			$this->data = $data;
 			$this->dist = $dist;
 		}
