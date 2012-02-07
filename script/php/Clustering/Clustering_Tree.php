@@ -32,14 +32,14 @@
 			return (array) $this->_name;
 		}
 		public function getValue($in) {
-			$return = array();
-			foreach ($in as $val) {
-				if (array_key_exists($val, $this->_value)) {
-					$return[] = $this->_value[$val];
 			$in = explode(':',$in);
+			$retour = array();
+			foreach ($in as $key) {
+				if (array_key_exists($key, $this->_value)) {
+					$retour[] = $this->_value[$key];
 				}
 			}
-			return $return;
+			return $retour;
 		}
 		
 		public function toArray() { return $this->_name; }
