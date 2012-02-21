@@ -12,7 +12,7 @@
 				'/True/'                      // On change les "True" en "true"
 			);
 			$to = array( '{\1}', '"', '\1', 'true' );
-			preg_replace($from,$to,$json);
+			$json = preg_replace($from,$to,$json);
 			return $json;
 		}
 	}
