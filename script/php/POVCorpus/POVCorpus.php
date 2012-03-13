@@ -35,6 +35,7 @@
 			
 			$this->setClustering($options["clustering"],$options["clustering_dist"]);
 			$this->setStyleSet($options["styleset"],$options["styleset_parti"],$options["styleset_param"]);
+			$this->setUI($options["povcorpus_ui"]);
 			
 			$this->reloadCorpus();
 			
@@ -89,6 +90,7 @@
 		
 		public function getFilenames() { return $this->corpus->getFilenames(); }
 		
+		public static function getDefaultsOptions() {
 			if (is_file(DATA_DIR."POVCorpus_Options.json")) {
 				$json = Json_Clear::clear(file_get_contents(DATA_DIR."POVCorpus_Options.json"));
 				return Zend_Json::decode($json);
