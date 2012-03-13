@@ -19,6 +19,10 @@
 			include_once LIBDIR_AJAX.$route->command->join('/',1);
 			exit(0); break; // << On est jamais trop prudent
 		
+		case "__dev":
+			include_once SERVEUR_URL.$route->command->join('/');
+			break;
+		
 		// >> Règles de redirections >>
 		
 		case "":
