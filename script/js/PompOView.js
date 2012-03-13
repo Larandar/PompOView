@@ -18,7 +18,7 @@ PompOView.UI.isLoaded  = function (type) { return Boolean(PompOView.UI.loaded[ty
 PompOView.UI.formatID  = function (count) { return "ui-tabs-" +  count ; };
 PompOView.UI.setLoaded = function (type,val) { PompOView.UI.loaded[type] = val ;};
 
-PompOView.UI.openTab = function (url,val) {
+PompOView.UI.openTab = function (url,val,js) {
 	if ( PompOView.UI.isLoaded(url) ) {
 		$('#pompoview-tabui').tabs("select",PompOView.UI.loaded[url] - 1);
 	} else {
@@ -28,8 +28,18 @@ PompOView.UI.openTab = function (url,val) {
 		
 		$('#pompoview-tabui').tabs("add","#"+tabid,val);
 		
-		jQuery.post( url , { "currentid" : tabid }, function ( data ) { $("#"+tabid).html(data); }, "html" );
+		if (js) {
+			js["currentid"] = tabid;
+		} else {
+			js = { "currentid" : tabid };
+		};
+		
+		jQuery.post( url , js , function ( data ) { $("#"+tabid).html(data); }, "html" );
 		
 		PompOView.UI.openTab( url );
 	};
 };
+
+PompOView.UI.newCorpusView = function (js) {
+	PompOView.UI.openTab(PompOView.ajax("pompoview-corpusview.php?json="+JSON.stringify(js)),js["corpus"]);
+}

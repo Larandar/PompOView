@@ -32,30 +32,26 @@
 			$this->povc_ui = new POVCorpus_HtmlUI();
 		}
 		
-		public function fromJSON($name) {
-			if (is_file($name)) {
-				$json = file_get_contents($name);
-				$json = Json_Clear::clear($json);
-				$json = Zend_Json::decode($json);
-				
-				$this->corpus = $json;
-				$this->data = $json['corpus_scores'];
-				
-				$this->cluste->setData($this->data);
-				
-				$data_list = ArrayTools_Matrix::triangularValues($json['corpus_scores']);
-				$this->data_list = $data_list;
-				$this->styles->setData($data_list,$this->styles_param);
-				
-				$this->filenames = $json['filenames'];
+			$this->corpus = $corpus;
 			} else {
 				throw new Exception('File "'.$name.'" does not exist !!');
 			}
+		public function setCorpus($corpus) {
+			$this->corpus = $corpus;
+			$this->reloadCorpus();
+		}
+		public function reloadCorpus() {
+			
+			$this->cluste->setData($this->getData());
+			
+			$data_list = ArrayTools_Matrix::triangularValues($this->getData());
+			$this->data_list = $data_list;
+			$this->styles->setData($data_list,$this->styles_param);
 		}
 		
 		public function setClustering($cluste_name, $cluste_dist = null) {
 			$this->cluste_dist = (is_null($cluste_dist))?$this->cluste_dist:$cluste_dist;
-			$this->cluste = new $cluste_name($this->data,$this->cluste_dist);
+			$this->cluste = new $cluste_name($this->getData(),$this->cluste_dist);
 		}
 		
 		public function setStyleSet($styles,$styles_parti = null,$styles_param = null) {
@@ -84,11 +80,10 @@
 		public function getClustering() { return $this->cluste; }
 		public function getStyleSet() { return $this->styles; }
 		
-		public function getData() { return $this->data; }
+		public function getData() { return $this->corpus->getScores(); }
 		public function getDataList() { return $this->data_list ; }
 		
-		public function getFilenames() { return $this->filenames; }
-		public function getSubProject() { return $this->subproject; }
+		public function getFilenames() { return $this->corpus->getFilenames(); }
 		
 	}
 	
