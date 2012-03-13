@@ -1,0 +1,8 @@
+{
+	"clustering"      : "Clustering_Hierarchical",
+	"clustering_dist" : "Distance::min",
+	"povcorpus_ui"    : "POVCorpus_HtmlUI",
+	"styleset"        : "StyleSet_ColorHSL",
+	"styleset_param"  : null,
+	"styleset_parti"  : "Partitionneur_EntangledKMeans"
+}

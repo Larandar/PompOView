@@ -6,36 +6,40 @@
 		/**
 		 * Données primaires
 		 */
-		protected $corpus;
+		public $corpus;
 		
 		protected $cluste;
-		protected $cluste_dist  = "Distance::min";
+		protected $cluste_dist;
 		
 		protected $styles;
-		protected $styles_parti = "Partitionneur_Linear";
-		protected $styles_param = null;
+		protected $styles_parti;
+		protected $styles_param;
 		
 		protected $povc_ui;
 		
 		/**
 		 * Données dérivés
 		 */
-		protected $data;
 		protected $data_list;
 		
-		protected $filenames;
-		protected $subproject;
-		
-		public function __construct() {
-			$this->cluste = new Clustering_Hierarchical(null,$this->cluste_dist);
-			$this->styles = new StyleSet_ColorHSL($this->styles_parti);
-			$this->povc_ui = new POVCorpus_HtmlUI();
+		public function __construct(Corpus $corpus, $options = false) {
+			
+			$this->corpus = $corpus;
+			
+			
+			if ($options) {
+				$options = array_merge(self::getDefaultsOptions(),$options);
+			} else {
+				$options = self::getDefaultsOptions();
+			}
+			
+			$this->setClustering($options["clustering"],$options["clustering_dist"]);
+			$this->setStyleSet($options["styleset"],$options["styleset_parti"],$options["styleset_param"]);
+			
+			$this->reloadCorpus();
+			
 		}
 		
-			$this->corpus = $corpus;
-			} else {
-				throw new Exception('File "'.$name.'" does not exist !!');
-			}
 		public function setCorpus($corpus) {
 			$this->corpus = $corpus;
 			$this->reloadCorpus();
@@ -84,6 +88,22 @@
 		public function getDataList() { return $this->data_list ; }
 		
 		public function getFilenames() { return $this->corpus->getFilenames(); }
+		
+			if (is_file(DATA_DIR."POVCorpus_Options.json")) {
+				$json = Json_Clear::clear(file_get_contents(DATA_DIR."POVCorpus_Options.json"));
+				return Zend_Json::decode($json);
+			} else {
+				file_put_contents(DATA_DIR."POVCorpus_Options.json",'{
+	"clustering"      : "Clustering_Hierarchical",
+	"clustering_dist" : "Distance::min",
+	"povcorpus_ui"    : "POVCorpus_HtmlUI",
+	"styleset"        : "StyleSet_ColorHSL",
+	"styleset_param"  : null,
+	"styleset_parti"  : "Partitionneur_EntangledKMeans"
+}');
+				return self::getDefaultsOptions();
+			}
+		}
 		
 	}
 	
