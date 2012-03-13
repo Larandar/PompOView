@@ -5,7 +5,7 @@
 	
 	
 	// Ajouter en fin de SERVER_URL le chemin a partir du serveur web
-	define( "SERVER_URL"   , 'http://'.$_SERVER["SERVER_NAME"].DS."PompOView_TR/" );
+	define( "SERVER_URL"   , 'http://'.$_SERVER["SERVER_NAME"].DS."PompOView/" );
 	
 	//
 	define( "BASE_DIR"     , getcwd().DS );
@@ -17,7 +17,9 @@
 	define( "URL_IMG"   , SERVER_URL."public/img/");
 	define( "URL_JS"    , SERVER_URL."script/js/");
 	
-	
+	//
+	define('DATA_URL', SERVER_URL . 'data/');
+	define('DATA_DIR', BASE_DIR . 'data/');
 	
 	// Configuration de la Base de donnée
 	require_once BASE_DIR."config/config_db.php";

@@ -11,7 +11,6 @@
 <h3>Commandes</h3>
 <ul class="listing">
 	<li><a class="strong" href="#" onclick="PompOView.UI.openTab('<?php echo URL_AJAX ; ?>pompoview-newcorpus.php','Nouveaux Corpus');">Nouveau Corpus</a> : Importation d'un nouveau corpus</li>
-	<li><a class="strong" href="#" onclick="PompOView.UI.openTab('<?php echo URL_AJAX ; ?>pompoview-corpusview.php','Vue de corpus');">Comparaison de corpus</a> : Comparaison de document a l'echelle d'un corpus complet ou d'un sous corpus.</li>
 	<li><a class="strong" href="#" onclick="PompOView.UI.openTab('<?php echo URL_AJAX ; ?>pompoview-diffview.php','{{$1}} ∫ {{$2}}');">Comparaison de documents</a> : Comparaison de document deux à deux.</li>
 </ul>
 <h3>A Propos</h3>
