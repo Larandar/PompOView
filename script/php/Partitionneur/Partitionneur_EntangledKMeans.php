@@ -2,12 +2,12 @@
 	/**
 	 * Un partionneur par moyenne emboitée sucécive
 	 */
-	abstract class Partitionneur_KMeans extends Partitionneur {
+	abstract class Partitionneur_EntangledKMeans extends Partitionneur {
 		public static function generer($list, $param = null) {
 			// Ne pas définir le paramètre fait appel au paramètre recommandé
 			// par le biais de la méthode statique "recommended"
 			if ($param == null) {
-				$param = Partitionneur_KMeans::recommended(count($list));
+				$param = Partitionneur_EntangledKMeans::recommended(count($list));
 			}
 			
 			$list = array($list);
