@@ -1,3 +1,10 @@
+<?php
+	//
+	$currenturi = $_REQUEST['currenturi'];
+	$currentid = $_REQUEST['currentid'] ;
+	
+	echo POV_HtmlUI::getCloseButton($currenturi,$currentid);
+?>
 <h2>Nouveau Corpus</h2>
 <h3><a href="<?php echo URL_AJAX ; ?>corpus-uploader.form.php" onclick="window.open(this.href); return false;">Importer un nouveau corpus</a></h3>
 
@@ -10,4 +17,8 @@
 </select>
 <a href="#" onclick="PompOView.UI.newCorpusView({corpus:$('#<?php echo $_REQUEST['currentid'] ?>-corpus-select').val()}); return false;">Ouvrir ce corpus</a>
 
+
+<script type="text/javascript" charset="utf-8">
+	PompOView.UI.initCloseButton();
+</script>
 

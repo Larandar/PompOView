@@ -79,3 +79,8 @@ input.button {
 	width: 200px;
 	height:50px;
 }
+
+button.ui-close-button {
+	float:right;
+	font-size:1em;
+}
