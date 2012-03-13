@@ -1,9 +1,13 @@
 <?php
 	//
+	$currenturi = $_REQUEST['currenturi'];
 	$currentid = $_REQUEST['currentid'] ;
-	$json = Zend_Json::decode($_REQUEST['json']);
 	
+	echo POV_HtmlUI::getCloseButton($currenturi,$currentid);
+	
+	$json = Zend_Json::decode($_REQUEST['json']);
 	$corpus = new Corpus(DATA_DIR.$json["corpus"]);
+	
 	$povcorpus = new POVCorpus($corpus);
 ?>
 
@@ -67,3 +71,7 @@
 		</p>
 	</div>
 </div>
+<script type="text/javascript" charset="utf-8">
+	$("<?php echo '#'.$currentid ?>-accordion").accordion();
+	PompOView.UI.initCloseButton();
+</script>

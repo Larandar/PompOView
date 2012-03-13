@@ -11,8 +11,12 @@ PompOView.ready   = function () {
 
 PompOView.UI = { "version" : "0.1" , "loaded" : {}, "counter" : 1};
 PompOView.UI.init      = function () {
-	$('#pompoview-tabui').tabs().find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+	$('#pompoview-tabui').tabs({closable: true}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
 };
+
+PompOView.UI.initCloseButton = function () {
+	$( "button.ui-close-button" ).button();
+}
 
 PompOView.UI.isLoaded  = function (type) { return Boolean(PompOView.UI.loaded[type]) ;};
 PompOView.UI.formatID  = function (count) { return "ui-tabs-" +  count ; };
@@ -21,6 +25,8 @@ PompOView.UI.setLoaded = function (type,val) { PompOView.UI.loaded[type] = val ;
 PompOView.UI.openTab = function (url,val,js) {
 	if ( PompOView.UI.isLoaded(url) ) {
 		$('#pompoview-tabui').tabs("select",PompOView.UI.loaded[url] - 1);
+		var index = $("#pompoview-tabui>div").index($("#ui-tabs-"+PompOView.UI.loaded[url]));
+		$('#pompoview-tabui').tabs("select",index);
 	} else {
 		PompOView.UI.loaded[url] = PompOView.UI.counter++;
 		
@@ -28,11 +34,10 @@ PompOView.UI.openTab = function (url,val,js) {
 		
 		$('#pompoview-tabui').tabs("add","#"+tabid,val);
 		
-		if (js) {
-			js["currentid"] = tabid;
-		} else {
-			js = { "currentid" : tabid };
-		};
+		if (!js) { js = {}; };
+		
+		js["currentid"] = tabid;
+		js["currenturi"] = url;
 		
 		jQuery.post( url , js , function ( data ) { $("#"+tabid).html(data); }, "html" );
 		
