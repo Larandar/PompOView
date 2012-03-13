@@ -9,7 +9,7 @@ PompOView.ready   = function () {
 	PompOView.UI.init();
 };
 
-PompOView.UI = { "version" : "0.1" , "loaded" : {}, "counter" : 1};
+PompOView.UI = { "version" : "0.1" , "loaded" : {}, "counter" : 1, "vars_map" : {}};
 PompOView.UI.init      = function () {
 	$('#pompoview-tabui').tabs({closable: true}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
 };
@@ -28,7 +28,6 @@ PompOView.UI.closeTab  = function (url,id) {
 
 PompOView.UI.openTab = function (url,val,js) {
 	if ( PompOView.UI.isLoaded(url) ) {
-		$('#pompoview-tabui').tabs("select",PompOView.UI.loaded[url] - 1);
 		var index = $("#pompoview-tabui>div").index($("#ui-tabs-"+PompOView.UI.loaded[url]));
 		$('#pompoview-tabui').tabs("select",index);
 	} else {
@@ -51,4 +50,14 @@ PompOView.UI.openTab = function (url,val,js) {
 
 PompOView.UI.newCorpusView = function (js) {
 	PompOView.UI.openTab(PompOView.ajax("pompoview-corpusview.php?json="+JSON.stringify(js)),js["corpus"]);
+}
+
+PompOView.UI.vars = function (id) {
+	if (PompOView.UI.vars_map[id]) {
+		return PompOView.UI.vars_map[id];
+	} else {
+		PompOView.UI.vars_map[id] = {};
+		return PompOView.UI.vars_map[id];
+	};
+	
 }

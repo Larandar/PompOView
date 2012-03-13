@@ -10,15 +10,24 @@
 
 <h2>Selectionner un corpus déjà existant</h2>
 
-<select id="<?php echo $_REQUEST['currentid'] ?>-corpus-select">
-	<?php foreach (scandir(DATA_DIR) as $value): if (!preg_match("/(^\.)|(\.json$)/",$value)) :?>
-	<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-	<?php  endif ; endforeach ;?>
-</select>
-<a href="#" onclick="PompOView.UI.newCorpusView({corpus:$('#<?php echo $_REQUEST['currentid'] ?>-corpus-select').val()}); return false;">Ouvrir ce corpus</a>
+<form>
+	<select id="<?php echo $_REQUEST['currentid'] ?>-corpus-select">
+	
+	</select>
+	<button onclick="PompOView.UI.newCorpusView({corpus:$('#<?php echo $_REQUEST['currentid'] ; ?>-corpus-select').val()}); return false;">Ouvrir ce corpus</button>
+	<button style="float:right;" onclick="PompOView.UI.vars('<?php echo $_REQUEST['currentid'] ; ?>').load();">Recharger la liste</button>
+</form>
 
 
 <script type="text/javascript" charset="utf-8">
+	PompOView.UI.vars("<?php echo $_REQUEST['currentid'] ; ?>").load = function () {
+		jQuery.post( 
+			"<?php echo URL_AJAX ; ?>fragment/pompoview-newcorpus.select.php" , 
+			{} , function ( data ) { 
+				$("#<?php echo $_REQUEST['currentid'] ; ?>-corpus-select").html(data); 
+			}, "html" ); 
+		return false; };
+	PompOView.UI.vars("<?php echo $_REQUEST['currentid'] ; ?>").load();
 	PompOView.UI.initCloseButton();
 </script>
 
