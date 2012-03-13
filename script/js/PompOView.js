@@ -21,6 +21,10 @@ PompOView.UI.initCloseButton = function () {
 PompOView.UI.isLoaded  = function (type) { return Boolean(PompOView.UI.loaded[type]) ;};
 PompOView.UI.formatID  = function (count) { return "ui-tabs-" +  count ; };
 PompOView.UI.setLoaded = function (type,val) { PompOView.UI.loaded[type] = val ;};
+PompOView.UI.closeTab  = function (url,id) {
+	PompOView.UI.setLoaded(url,false);
+	$('#pompoview-tabui').tabs("remove","#"+id);
+}
 
 PompOView.UI.openTab = function (url,val,js) {
 	if ( PompOView.UI.isLoaded(url) ) {
