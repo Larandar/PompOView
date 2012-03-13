@@ -8,16 +8,16 @@
 	$json = Zend_Json::decode($_REQUEST['json']);
 	$corpus = new Corpus(DATA_DIR.$json["corpus"]);
 	
+	if (!$corpus->exist()) {
+		die("Une erreur c'est produite car le corpus n'a pas été charger correctement.");
+	}
+	
 	$povcorpus = new POVCorpus($corpus);
 ?>
-
-<pre><?php print_r($_REQUEST) ?></pre>
 <h2>Comparaison d'un corpus</h2>
-<script type="text/javascript" charset="utf-8">
-	$("<?php echo '#'.$currentid ?>-accordion").accordion();
-</script>
+
 <div id="<?php echo $currentid ?>-accordion">
-	<h3><a href="#">Section 1</a></h3>
+	<h3><a href="#">Matrice de valeur</a></h3>
 	<div id="#<?php echo $currentid ?>-result">
 		<?php echo $povcorpus->makeTable(); ?>
 	</div>
