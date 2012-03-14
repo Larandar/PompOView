@@ -29,11 +29,12 @@
 			
 			
 			if ($this->exist()) {
-				$load = Json_Clear::clear(file_get_contents($this->corpus_stream.self::$manifest));
-				$this->corpus = Zend_Json::decode($load);
+				$load = Json::decode($this->corpus_stream.self::$manifest);
 			}
 		}
 		
+			$json = Json::clear($json);
+			$corpus_opt = Json::decode($json);
 		public function exist() {
 			return is_file($this->corpus_stream.self::$manifest);
 		}
@@ -41,7 +42,7 @@
 		public function subCorpus($toKeep) {
 			$toErase = array_diff(array_keys($this->corpus["filenames"]),$toKeep);
 			$newjs = CorpusTools_SubCorpus::subCorpusJSON($this->corpus_stream.self::$manifest,$toErase);
-			$this->corpus = Zend_Json::decode($newjs);
+			$this->corpus = Json::decode($newjs);
 		}
 		
 		public function getScores() {

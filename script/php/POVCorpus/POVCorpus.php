@@ -92,8 +92,7 @@
 		
 		public static function getDefaultsOptions() {
 			if (is_file(DATA_DIR."POVCorpus_Options.json")) {
-				$json = Json_Clear::clear(file_get_contents(DATA_DIR."POVCorpus_Options.json"));
-				return Zend_Json::decode($json);
+				return Json::decode(DATA_DIR."POVCorpus_Options.json"));
 			} else {
 				file_put_contents(DATA_DIR."POVCorpus_Options.json",'{
 	"clustering"      : "Clustering_Hierarchical",

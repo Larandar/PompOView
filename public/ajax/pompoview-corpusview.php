@@ -74,4 +74,5 @@
 <script type="text/javascript" charset="utf-8">
 	$("<?php echo '#'.$currentid ?>-accordion").accordion();
 	PompOView.UI.initButton();
+		var js = JSON.parse('<?php echo addslashes(Json::encode($_REQUEST)); ?>');
 </script>

@@ -1,3 +1,0 @@
-The Zend_Json plug in have been modified in this way:
-	- Replace require_once to this way "require_once 'Zend/Json/..." -> "require_once 'Json/..." for follow the custom PompOView project's structure
-	- Rename the Zend/Json.php file to match with the __autoload used to Zend/Zend_Json.php so the class name Zend_Json will be load correctly

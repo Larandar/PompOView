@@ -8,8 +8,7 @@
 		 * @return JSON Formated String
 		 */
 		public static function subCorpusJSON($jsonOrig, array $toErase) {
-			$json   = Json_Clear::clear(file_get_contents($jsonOrig));
-			$corpus = Zend_Json::decode($json);
+			$corpus = Json::decode($jsonOrig);
 				
 			$corpus_filename = (array)$corpus["filenames"];
 			foreach($toErase as $key){
