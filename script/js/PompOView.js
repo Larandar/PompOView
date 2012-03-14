@@ -14,8 +14,8 @@ PompOView.UI.init      = function () {
 	$('#pompoview-tabui').tabs({closable: true}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
 };
 
-PompOView.UI.initCloseButton = function () {
-	$( "button.ui-close-button" ).button();
+PompOView.UI.initButton = function () {
+	$( "button.ui-close-button, button").button();
 }
 
 PompOView.UI.isLoaded  = function (type) { return Boolean(PompOView.UI.loaded[type]) ;};

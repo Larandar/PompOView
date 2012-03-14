@@ -9,5 +9,5 @@
 <pre><?php print_r($_REQUEST) ?></pre>
 
 <script type="text/javascript" charset="utf-8">
-	PompOView.UI.initCloseButton();
+	PompOView.UI.initButton();
 </script>

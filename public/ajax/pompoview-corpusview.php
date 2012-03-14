@@ -73,5 +73,5 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 	$("<?php echo '#'.$currentid ?>-accordion").accordion();
-	PompOView.UI.initCloseButton();
+	PompOView.UI.initButton();
 </script>

@@ -12,7 +12,7 @@
 			$order = $povc->getClustering()->getOrder();
 			
 			$html = "";
-			$html .= "<table>".PHP_EOL;
+			$html .= '<table class="pompoview-table">'.PHP_EOL;
 			
 			$html .= "<thead><tr><th></th>";
 			foreach ($order as $o => $i) {

@@ -14,8 +14,8 @@
 	<select id="<?php echo $_REQUEST['currentid'] ?>-corpus-select">
 	
 	</select>
-	<button onclick="PompOView.UI.newCorpusView({corpus:$('#<?php echo $_REQUEST['currentid'] ; ?>-corpus-select').val()}); return false;">Ouvrir ce corpus</button>
-	<button style="float:right;" onclick="PompOView.UI.vars('<?php echo $_REQUEST['currentid'] ; ?>').load();">Recharger la liste</button>
+	<button onclick="PompOView.UI.newCorpusView({corpus:$('#<?php echo $_REQUEST['currentid'] ; ?>-corpus-select').val()});return false;">Ouvrir ce corpus</button>
+	<button style="float:right;" onclick="PompOView.UI.vars('<?php echo $_REQUEST['currentid'] ; ?>').load();return false;">Recharger la liste</button>
 </form>
 
 
@@ -26,8 +26,8 @@
 			{} , function ( data ) { 
 				$("#<?php echo $_REQUEST['currentid'] ; ?>-corpus-select").html(data); 
 			}, "html" ); 
-		return false; };
+		};
 	PompOView.UI.vars("<?php echo $_REQUEST['currentid'] ; ?>").load();
-	PompOView.UI.initCloseButton();
+	PompOView.UI.initButton();
 </script>
 
