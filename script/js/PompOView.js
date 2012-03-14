@@ -40,7 +40,7 @@ PompOView.UI.openTab = function (url,val,js) {
 		if (!js) { js = {}; };
 		
 		js["currentid"] = tabid;
-		js["currenturi"] = url;
+		js["currenturi"] = encodeURIComponent(url);
 		
 		jQuery.post( url , js , function ( data ) { $("#"+tabid).html(data); }, "html" );
 		
