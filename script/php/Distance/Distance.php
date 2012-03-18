@@ -15,19 +15,24 @@
 			return $all;
 		}
 		
-		public static function min($a, $b){
-			return min(min($a,$b));
+		public static function min($a, $b = false){
+			if (!$b) { $b = $a; }
+			if ((count($a)+count($b)) == 0) { throw new Exception("OUPS!!");}
+			return min(array_merge($a,$b));
 		}
 		
-		public static function max($a, $b){
-			return max(max($a, $b));
+		public static function max($a, $b = false){
+			if (!$b) { $b = $a; }
+			return max(array_merge($a, $b));
 		}
 		
-		public static function med($a, $b){
+		public static function med($a, $b = false){
+			if (!$b) { $b = $a; }
 			return (Distance::min($a,$b) + Distance::max($a,$b))/2;
 		}
 		
-		public static function avg($a, $b) {
+		public static function avg($a, $b = false) {
+			if (!$b) { $b = $a; }
 			if ((count($a)+count($b)) == 0) {
 				return 0;
 			} else {

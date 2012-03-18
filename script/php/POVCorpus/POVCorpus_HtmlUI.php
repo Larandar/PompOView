@@ -23,7 +23,7 @@
 			$html .= "<tbody>".PHP_EOL;
 			foreach ( $order as $o => $i ) {
 				$html .= "<tr>";
-				$html .= sprintf('<th><abbr title="%s">%s</abbr></th>',$filenames[$i],$o+1);
+				$html .= sprintf('<th><abbr title="%s">%s</abbr></th>',htmlentities($filenames[$i]),$o+1);
 				foreach ( $order as $j ) {
 					$cour = $data[$i][$j];
 					$html .= sprintf('<td style="%s"><abbr title="%f">%.2f</abbr></td>',$style->getStyleOf($cour),$cour,$cour);
@@ -52,31 +52,31 @@
 		public static function makePOVCorpusForm(POVCorpus $povc,$currenturl,$currentid) {
 			$form = '<form id="'.$currentid.'-options-form">'.PHP_EOL;
 			
-			$form .= '<select id="'.$currentid.'-options-form-clustering">';
+			$form .= '<p><label>Mode de clustering: <select id="'.$currentid.'-options-form-clustering">';
 			foreach (Clustering::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
-			$form .= '</select>';
+			$form .= '</select></label><br/>';
 			
-			$form .= '<select id="'.$currentid.'-options-form-clustering-distance">';
+			$form .= '<label>Distance adoptée pour le clustering: <select id="'.$currentid.'-options-form-clustering-distance">';
 			foreach (Distance::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
-			$form .= '</select>';
+			$form .= '</select></label></p>';
 			
 			
-			$form .= '<select id="'.$currentid.'-options-form-styleset">';
+			$form .= '<p><label>Style de coloration de la matrice: <select id="'.$currentid.'-options-form-styleset">';
 			foreach (StyleSet::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
-			$form .= '</select>';
+			$form .= '</select></label><br/>';
 			
-			$form .= '<select id="'.$currentid.'-options-form-partitionneur" ';
+			$form .= '<label>Partitionneur de couleur pour le style: <select id="'.$currentid.'-options-form-partitionneur" ';
 			$form .= 'onchange="'."PompOView.UI.vars('".$currenturl."').loadpartitionneur();".'">';
 			foreach (Partitionneur::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
-			$form .= '</select>';
+			$form .= '</select></label><br/>';
 			$form .= '<script type="text/javascript" charset="utf-8">
 				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur = function () {
 					jQuery.post(PompOView.ajax('."'fragment/pompoview-corpusview.form.select.parametre-partitionneur.php'".'),
@@ -87,9 +87,9 @@
 				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur();
 			</script>';
 			
-			$form .= '<select id="'.$currentid.'-options-form-parametre-partitionneur">';
+			$form .= '<label>Paramètre du partitionneur: <select id="'.$currentid.'-options-form-parametre-partitionneur">';
 			
-			$form .= '</select>';
+			$form .= '</select></label></p>';
 			$form .= '<button onclick="';
 			$form .= "PompOView.UI.vars('".$currenturl."').load()";
 			$form .= ';return false;">Valider ces options</button>';

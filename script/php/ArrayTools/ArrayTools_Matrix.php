@@ -47,6 +47,52 @@
 			}
 			return $values;
 		}
+		
+		public static function fusionValues($matrix,array $indices, $dist, $gname = false) {
+			
+			$table = array();
+			if ($gname) {
+				$newname = $gname;
+			} else {
+				$newname = join($indices,":");
+			}
+			
+			foreach ($matrix as $key => $subarray) {
+				if (in_array($key, $indices)) {
+					$table[$key] = $subarray;
+					unset($matrix[$key]);
+				} else {
+					$vals = array();
+					foreach ($indices as $skey) {
+						$vals[] = $subarray[$skey];
+						unset($matrix[$key][$skey]);
+					}
+					$matrix[$key][$newname] = call_user_func($dist,$vals);
+				}
+			}
+			
+			$finalrow = array( $newname => array(0) );
+			foreach ($table as $key => $values) {
+				foreach ($indices as $ind) {
+					unset($values[$ind]);
+				}
+				$finalrow[$key] = array();
+				foreach ($values as $skey => $value) {
+					$finalrow[$skey][] = $value;
+				}
+			}
+			foreach ($finalrow as $key => $value) {
+				if (in_array($key,$indices) && $key !== $newname) {
+					unset($finalrow[$key]);
+				} else {
+					$finalrow[$key] = call_user_func($dist,$value);
+				}
+			}
+			
+			$matrix[$newname] = $finalrow;
+			
+			return $matrix;
+		}
 	}
 	
 ?>

@@ -4,5 +4,6 @@
 	"povcorpus_ui"    : "POVCorpus_HtmlUI",
 	"styleset"        : "StyleSet_ColorHSL",
 	"styleset_param"  : null,
-	"styleset_parti"  : "Partitionneur_EntangledKMeans"
+	"styleset_parti"  : "Partitionneur_EntangledKMeans",
+	"groups"          : "false"
 }

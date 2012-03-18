@@ -32,7 +32,7 @@
 			return (array) $this->_name;
 		}
 		public function getValue($in) {
-			$in = explode(':',$in);
+			$in = explode('+',$in);
 			$retour = array();
 			foreach ($in as $key) {
 				if (array_key_exists($key, $this->_value)) {
@@ -57,7 +57,7 @@
 			$this->_level = $level;
 			$this->_child1 = $child1;
 			$this->_child2 = $child2;
-			$this->_name = join($this->getOrder(),":");
+			$this->_name = join($this->getOrder(),'+');
 		}
 		
 		public function getOrder() {
@@ -69,7 +69,8 @@
 		}
 		
 		public function getValue($name) {
-			return array_merge($this->_child1->getValue($name),$this->_child2->getValue($name));
+			$value = array_merge($this->_child1->getValue($name),$this->_child2->getValue($name));
+			return $value;
 		}
 		
 		public function toArray() { return array($this->_child1->toArray(),$this->_child2->toArray()); }

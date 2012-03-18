@@ -15,7 +15,12 @@
 		protected $corpus_exte;
 		protected $corpus_stream;
 		
+		protected $projetmode = false;
+		
 		protected $json;
+		
+		protected $parent = false;
+		protected $projet_dist = "Distance::min";
 		
 		function __construct($corpus_path) {
 			$this->corpus_path = $corpus_path;
@@ -36,6 +41,18 @@
 			}
 			
 			
+		}
+		
+		public function setParent($povc) {
+			$this->parent = $povc;
+		}
+		
+		public function getProjetsDist() {
+			if ($this->parent && $this->parent->getClustering()) {
+				return $this->parent->getClustering()->getDist();
+			} else {
+				return $this->group_dist;
+			}
 		}
 		
 		public static function fromAjax($json) {
@@ -59,20 +76,40 @@
 			$this->corpus = Json::decode($newjs);
 		}
 		
-		public function getCorpusName() {
-			return $this->corpus_name;
+		
+		public function emuleProjet() { 
+			$this->groupmode = true; 
+			$projets = new Corpus_ProjetExtractor($this);
+			
+			$matrice = $this->getScores();
+			
+			foreach ($projets->getProjets() as $projet => $files) {
+				$ids = array();
+				foreach ($files as $f) { $ids[] = $this->getIDOfFile($f); }
+				
+				$gname = 'G{'.join($ids,":").'}';
+				$matrice = ArrayTools_Matrix::fusionValues($matrice,$ids,$this->getProjetsDist(),$gname);
+				
+				$gstring = $gname.' : { ';
+				$gstring .= join($files," : ");
+				$gstring .= ' }';
+				$this->corpus_base["filenames"][$gname] = $gstring;
+			}
+			
+			$this->corpus["corpus_scores"] = $matrice;
 		}
 		
-		public function getScores() {
-			return $this->corpus["corpus_scores"];
+		public function getIDOfFile($name) {
+			return array_search($name,$this->getAllFileNames());
 		}
+		public function getCorpusName() { return $this->corpus_name; }
 		
-		public function getFileNames() {
-			return $this->corpus["filenames"];
-		}
+		public function getScores() { return $this->corpus["corpus_scores"]; }
+		public function getAllFileNames() { return $this->corpus_base["filenames"]; }
+		public function getFileNames() { return $this->corpus_base["filenames"]; }
 		
 		public function getFileName($id) {
-			return $this->corpus["filenames"][$id];
+			return $this->corpus_base["filenames"][$id];
 		}
 		
 		public function getFile($name) {
@@ -84,8 +121,10 @@
 			return $this->getFile($name);
 		}
 		
-		public function getSignature() {
-			return $this->corpus_base["signature"];
+		public function getSignature() { return $this->corpus_base["signature"]; }
+		
+		public function isActive($filename) {
+			return in_array($filename, $this->corpus['filenames']);
 		}
 		
 		public function getLogName($name_1,$name_2) {

@@ -25,7 +25,7 @@
 		public function __construct(Corpus $corpus, $options = false) {
 			
 			$this->corpus = $corpus;
-			
+			$this->corpus->setParent($this);
 			
 			if ($options) {
 				$options = array_merge(self::getDefaultsOptions(),$options);
@@ -36,6 +36,11 @@
 			$this->setClustering($options["clustering"],$options["clustering_dist"]);
 			$this->setStyleSet($options["styleset"],$options["styleset_parti"],$options["styleset_param"]);
 			$this->setUI($options["povcorpus_ui"]);
+			
+			$this->group = $options['groups'];
+			if ($this->group === "true") {
+				$this->corpus->emuleProjet($this->group);
+			}
 			
 			$this->reloadCorpus();
 			
@@ -100,7 +105,8 @@
 	"povcorpus_ui"    : "POVCorpus_HtmlUI",
 	"styleset"        : "StyleSet_ColorHSL",
 	"styleset_param"  : null,
-	"styleset_parti"  : "Partitionneur_EntangledKMeans"
+	"styleset_parti"  : "Partitionneur_EntangledKMeans",
+	"groups"          : "false"
 }');
 				return self::getDefaultsOptions();
 			}
