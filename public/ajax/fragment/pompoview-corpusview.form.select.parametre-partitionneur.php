@@ -12,8 +12,12 @@
 		die('<p class="error">Une erreur c\'est produite car le corpus n\'a pas été charger correctement.</p>');
 	}
 	
-	
-	$countf = count($corpus->getFileNames());
+	if ($options["groups"] === "true") {
+		$corpus->emuleProjet();
+		$countf = count($corpus->getProjet());
+	} else {
+		$countf = count($corpus->getFileNames());
+	}
 	$recommended = $partitionneur.'::recommended';
 	$recommended = call_user_func($recommended,$countf);
 	$estimation = $partitionneur.'::estimation';

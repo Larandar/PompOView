@@ -19,6 +19,8 @@
 		
 		protected $json;
 		
+		protected $projet;
+		
 		protected $parent = false;
 		protected $projet_dist = "Distance::min";
 		
@@ -81,6 +83,7 @@
 			$this->groupmode = true; 
 			$projets = new Corpus_ProjetExtractor($this);
 			
+			$this->projets = $projets->getProjets();
 			$matrice = $this->getScores();
 			
 			foreach ($projets->getProjets() as $projet => $files) {
@@ -98,6 +101,8 @@
 			
 			$this->corpus["corpus_scores"] = $matrice;
 		}
+		
+		public function getProjet() { return $this->projets ;}
 		
 		public function getIDOfFile($name) {
 			return array_search($name,$this->getAllFileNames());
