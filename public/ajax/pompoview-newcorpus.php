@@ -5,10 +5,10 @@
 	
 	echo POV_HtmlUI::getCloseButton($currenturl,$currentid);
 ?>
-<h2>Nouveau Corpus</h2>
-<h3><a href="<?php echo URL_AJAX ; ?>corpus-uploader.form.php" onclick="window.open(this.href); return false;">Importer un nouveau corpus</a></h3>
+<h2 class="pretty">Nouveau Corpus</h2>
+<h3 class="pretty"><a href="<?php echo URL_AJAX ; ?>corpus-uploader.form.php" onclick="window.open(this.href); return false;">Importer un nouveau corpus</a></h3>
 
-<h2>Selectionner un corpus déjà existant</h2>
+<h3 class="pretty">Selectionner un corpus déjà existant</h2>
 
 <form>
 	<select id="<?php echo $_REQUEST['currentid'] ?>-corpus-select">

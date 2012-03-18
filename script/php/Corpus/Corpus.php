@@ -31,8 +31,15 @@
 			
 			if ( is_file($corpus_path.'/'.self::$manifest) ) {
 				$this->corpus_stream = $corpus_path .'/';
-			} else {
+			} else if ( is_file('phar://'.$corpus_path .'/'.self::$manifest)){
 				$this->corpus_stream = 'phar://'.$corpus_path .'/';
+			} else {
+				$stream = 'phar://'.$corpus_path .'/';
+				$dirs = scandir($stream);
+				$dirs = array_filter($dirs,function ($a) { 
+					return !preg_match("/^[._]|\.json$/",$a); 
+				});
+				$this->corpus_stream = $stream.$dirs;
 			}
 			
 			if ($this->exist()) {
@@ -53,7 +60,7 @@
 			if ($this->parent && $this->parent->getClustering()) {
 				return $this->parent->getClustering()->getDist();
 			} else {
-				return $this->group_dist;
+				return $this->projet_dist;
 			}
 		}
 		
