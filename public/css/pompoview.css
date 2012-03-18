@@ -9,6 +9,7 @@ html, body {
 	margin: 0; padding: 0;
 	background: #EFEFEF;
 	font-family: ExoRegular, serif;
+	font-size: 90%;
 }
 
 header { 

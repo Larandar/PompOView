@@ -4,6 +4,14 @@
 	 */
 	abstract class StyleSet {
 		
+		public static function getAll() {
+			$all = array(
+				"StyleSet_ColorHSL" => "Coloration HSL des valeurs"
+			);
+			return $all;
+		}
+		
+		
 		protected $part_name;
 		protected $part_data;
 		protected $part_parm;

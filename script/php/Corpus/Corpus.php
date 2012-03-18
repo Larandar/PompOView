@@ -18,8 +18,9 @@
 		protected $json;
 		
 		function __construct($corpus_path) {
-			
 			$this->corpus_path = $corpus_path;
+			
+			$this->corpus_name = str_replace( DATA_DIR, "", $corpus_path );
 			
 			if ( is_file($corpus_path.'/'.self::$manifest) ) {
 				$this->corpus_stream = $corpus_path .'/';
@@ -27,14 +28,27 @@
 				$this->corpus_stream = 'phar://'.$corpus_path .'/';
 			}
 			
-			
 			if ($this->exist()) {
 				$load = Json::decode($this->corpus_stream.self::$manifest);
+				$this->corpus_base = $load;
+				$this->corpus = $load;
+				
 			}
+			
+			
 		}
 		
+		public static function fromAjax($json) {
 			$json = Json::clear($json);
 			$corpus_opt = Json::decode($json);
+			$corpus = new Corpus(DATA_DIR.$corpus_opt["corpus"]);
+			if (!isset($corpus_opt['corpus_sub'])) {
+				$corpus_opt['corpus_sub'] = array_keys($corpus->getFileNames());
+			}
+			$corpus->subCorpus($corpus_opt['corpus_sub']);
+			return $corpus;
+		}
+		
 		public function exist() {
 			return is_file($this->corpus_stream.self::$manifest);
 		}
@@ -43,6 +57,10 @@
 			$toErase = array_diff(array_keys($this->corpus["filenames"]),$toKeep);
 			$newjs = CorpusTools_SubCorpus::subCorpusJSON($this->corpus_stream.self::$manifest,$toErase);
 			$this->corpus = Json::decode($newjs);
+		}
+		
+		public function getCorpusName() {
+			return $this->corpus_name;
 		}
 		
 		public function getScores() {
@@ -66,10 +84,15 @@
 			return $this->getFile($name);
 		}
 		
+		public function getSignature() {
+			return $this->corpus_base["signature"];
+		}
+		
 		public function getLogName($name_1,$name_2) {
 			$name_1 = preg_replace("#/#", "#", $name_1);
 			$name_2 = preg_replace("#/#", "#", $name_2);
-			return $name_1 .'_x_'. $name_2 .'.png';
+			$nb = count($this->corpus["signature"]["documentDistanceFilter"]);
+			return $this->corpus_stream."log/".$name_1 .'_x_'. $name_2 . $nb .'.png';
 		}
 		
 		public function getLogNameByID($id_1,$id_2) {

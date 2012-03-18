@@ -6,7 +6,7 @@
 		public static function generer($list, $param = null) {
 			// Ne pas définir le paramètre fait appel au paramètre recommandé
 			// par le biais de la méthode statique "recommended"
-			if ($param == null) {
+			if ($param == null || $param == "null") {
 				$param = Partitionneur_EntangledKMeans::recommended(count($list));
 			}
 			
@@ -38,8 +38,8 @@
 			return $partition;
 		}
 		
-		public static function estimation($N) { return pow(2,$N) ; }
-		public static function recommended($N) { return floor(log(sqrt($N))/log(2)) ; }
+		protected static function calc_estima($N) { return pow(2,$N) ; }
+		protected static function calc_recomm($N) { return 1+floor(log(sqrt($N))/log(2)) ; }
 	}
 	
 ?>

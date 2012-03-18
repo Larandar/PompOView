@@ -27,6 +27,7 @@ PompOView.UI.closeTab  = function (url,id) {
 }
 
 PompOView.UI.openTab = function (url,val,js) {
+	url = url.replace(/"/g,"%22");
 	if ( PompOView.UI.isLoaded(url) ) {
 		var index = $("#pompoview-tabui>div").index($("#ui-tabs-"+PompOView.UI.loaded[url]));
 		$('#pompoview-tabui').tabs("select",index);
@@ -40,7 +41,7 @@ PompOView.UI.openTab = function (url,val,js) {
 		if (!js) { js = {}; };
 		
 		js["currentid"] = tabid;
-		js["currenturi"] = encodeURIComponent(url);
+		js["currenturl"] = url;
 		
 		jQuery.post( url , js , function ( data ) { $("#"+tabid).html(data); }, "html" );
 		

@@ -1,78 +1,64 @@
 <?php
 	//
-	$currenturi = $_REQUEST['currenturi'];
+	$currenturl = $_REQUEST['currenturl'];
 	$currentid = $_REQUEST['currentid'] ;
 	
-	echo POV_HtmlUI::getCloseButton($currenturi,$currentid);
+	echo POV_HtmlUI::getCloseButton($currenturl,$currentid);
 	
-	$json = Zend_Json::decode($_REQUEST['json']);
-	$corpus = new Corpus(DATA_DIR.$json["corpus"]);
+	$json = $_REQUEST['json'];
+	$corpus = Corpus::fromAjax($json); 
 	
 	if (!$corpus->exist()) {
-		die("Une erreur c'est produite car le corpus n'a pas été charger correctement.");
+		die('<p class="error">Une erreur c\'est produite car le corpus n\'a pas été charger correctement.</p>');
 	}
 	
 	$povcorpus = new POVCorpus($corpus);
 ?>
 <h2>Comparaison d'un corpus</h2>
-
 <div id="<?php echo $currentid ?>-accordion">
-	<h3><a href="#">Matrice de valeur</a></h3>
-	<div id="#<?php echo $currentid ?>-result">
-		<?php echo $povcorpus->makeTable(); ?>
+	<h3 class="pretty"><a href="#">Matrice de valeur</a></h3>
+	<div> 
+		<div id="<?php echo $currentid ?>-result"></div>
 	</div>
-	<h3><a href="#">Section 2</a></h3>
+	<h3 class="pretty"><a href="#">Selection des éléments</a></h3>
 	<div>
-		<ul style="list-style:none;">
-		<li><strong>1</strong>: corpus/test/3/other/output.py
-		<li><strong>2</strong>: corpus/test/3/html.py
-		<li><strong>3</strong>: corpus/test/3/tp.py
-		<li><strong>4</strong>: corpus/test/3/plot.py
-		<li><strong>5</strong>: corpus/test/1/Source/nuage.py
-		<li><strong>6</strong>: corpus/test/3/other/tools.py
-		<li><strong>7</strong>: corpus/test/1/Source/tp_1_2.py
-		<li><strong>8</strong>: corpus/test/1/Source/cnt_char.py
-		<li><strong>9</strong>: corpus/test/4/LTAL_1_2.py
-		<li><strong>10</strong>: corpus/test/1/Source/graph.py
-		<li><strong>11</strong>: corpus/test/5/TP_1_2.py
-		<li><strong>12</strong>: corpus/test/2/tp_1-2.py
-		<li><strong>13</strong>: corpus/test/6/script.py
-		<li><strong>14</strong>: corpus/test/1/Source/tool_ltal.py
-		<li><strong>15</strong>: corpus/test/4/Boitoutils.py
-		<li><strong>16</strong>: corpus/test/5/Boitoutils.py
-		</ul>
+		<?php echo $povcorpus->makeCorpusContent($currenturl,$currentid); ?>
 	</div>
-	<h3><a href="#">Section 3</a></h3>
+	<h3 class="pretty"><a href="#">Options de génération</a></h3>
 	<div>
-		<p>
-		Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-		Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-		ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-		lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-		</p>
-		<ul>
-			<li>List item one</li>
-			<li>List item two</li>
-			<li>List item three</li>
-		</ul>
+		<?php echo $povcorpus->makePOVCorpusForm($currenturl,$currentid); ?>
 	</div>
-	<h3><a href="#">Section 4</a></h3>
+	<!--<h3 class="pretty"><a href="#">Statistiques</a></h3>
 	<div>
-		<p>
-		Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-		et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-		faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-		mauris vel est.
-		</p>
-		<p>
-		Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-		Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-		inceptos himenaeos.
-		</p>
-	</div>
+	<?php echo $povcorpus->makeCorpusStats($currenturl,$currentid); ?>
+	</div>-->
 </div>
 <script type="text/javascript" charset="utf-8">
-	$("<?php echo '#'.$currentid ?>-accordion").accordion();
-	PompOView.UI.initButton();
+	
+	//$("<?php echo '#'.$currentid ?>-accordion").accordion({autoHeight: false});
+	
+	PompOView.UI.vars("<?php echo $currenturl ; ?>").getoptions = function () {
+		var options = { povcorpus_ui : "POVCorpus_HtmlUI" };
+		options["clustering"] = $("#<?php echo $currentid ; ?>-options-form-clustering").val();
+		options["clustering_dist"] = $("#<?php echo $currentid ; ?>-options-form-clustering-distance").val();
+		options["styleset"] = $("#<?php echo $currentid ; ?>-options-form-styleset").val();
+		options["styleset_parti"] = $("#<?php echo $currentid ; ?>-options-form-partitionneur").val();
+		var param = $("#<?php echo $currentid ; ?>-options-form-parametre-partitionneur").val();
+		if (param === undefined) { param = "null"; };
+		options["styleset_param"] = param;
+		return options;
+	}
+	
+	PompOView.UI.vars("<?php echo $currenturl ; ?>").load = function () {
 		var js = JSON.parse('<?php echo addslashes(Json::encode($_REQUEST)); ?>');
+		js["options"] = PompOView.UI.vars("<?php echo $currenturl ; ?>").getoptions();
+		jQuery.post("<?php echo URL_AJAX; ?>fragment/pompoview-corpusview.result.php",js,function (data) {
+			$("#<?php echo $currentid ; ?>-result").html(data);
+		});
+		
+		//$("<?php echo '#'.$currentid ?>-accordion").accordion("activate",0);
+	};
+	
+	PompOView.UI.vars("<?php echo $currenturl ; ?>").load();
+	
 </script>

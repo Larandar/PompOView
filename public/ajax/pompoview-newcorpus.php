@@ -1,9 +1,9 @@
 <?php
 	//
-	$currenturi = $_REQUEST['currenturi'];
+	$currenturl = $_REQUEST['currenturl'];
 	$currentid = $_REQUEST['currentid'] ;
 	
-	echo POV_HtmlUI::getCloseButton($currenturi,$currentid);
+	echo POV_HtmlUI::getCloseButton($currenturl,$currentid);
 ?>
 <h2>Nouveau Corpus</h2>
 <h3><a href="<?php echo URL_AJAX ; ?>corpus-uploader.form.php" onclick="window.open(this.href); return false;">Importer un nouveau corpus</a></h3>
@@ -28,6 +28,5 @@
 			}, "html" ); 
 		};
 	PompOView.UI.vars("<?php echo $_REQUEST['currentid'] ; ?>").load();
-	PompOView.UI.initButton();
 </script>
 

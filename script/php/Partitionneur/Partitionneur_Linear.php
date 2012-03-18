@@ -21,8 +21,8 @@
 			return $partition;
 		}
 		
-		public static function estimation($N) { return $N ; }
-		public static function recommended($N) { return floor($N/2) + 3 ; }
+		protected static function calc_estima($N) { return $N ; }
+		protected static function calc_recomm($N) { return floor($N/2) + 3 ; }
 	}
 	
 ?>

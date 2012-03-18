@@ -4,7 +4,7 @@
 	 */
 	class POVCorpus_HtmlUI {
 		
-		public static function makeTable(POVCorpus $povc) {
+		public static function makeTable(POVCorpus $povc,$currenturl,$currentid) {
 			$data = $povc->getData();
 			$style = $povc->getStyleSet();
 			$filenames = $povc->getFilenames();
@@ -35,7 +35,7 @@
 			return $html;
 		}
 		
-		public static function makeCorpusContent(POVCorpus $povc) {
+		public static function makeCorpusContent(POVCorpus $povc,$currenturl,$currentid) {
 			$filenames = $povc->getFilenames();
 			$order = $povc->getClustering()->getOrder();
 			
@@ -47,6 +47,58 @@
 			$html .= "</ul>".PHP_EOL;
 			
 			return $html;
+		}
+		
+		public static function makePOVCorpusForm(POVCorpus $povc,$currenturl,$currentid) {
+			$form = '<form id="'.$currentid.'-options-form">'.PHP_EOL;
+			
+			$form .= '<select id="'.$currentid.'-options-form-clustering">';
+			foreach (Clustering::getAll() as $key => $value) {
+				$form .= '<option value="'.$key.'">'.$value.'</option>';
+			}
+			$form .= '</select>';
+			
+			$form .= '<select id="'.$currentid.'-options-form-clustering-distance">';
+			foreach (Distance::getAll() as $key => $value) {
+				$form .= '<option value="'.$key.'">'.$value.'</option>';
+			}
+			$form .= '</select>';
+			
+			
+			$form .= '<select id="'.$currentid.'-options-form-styleset">';
+			foreach (StyleSet::getAll() as $key => $value) {
+				$form .= '<option value="'.$key.'">'.$value.'</option>';
+			}
+			$form .= '</select>';
+			
+			$form .= '<select id="'.$currentid.'-options-form-partitionneur" ';
+			$form .= 'onchange="'."PompOView.UI.vars('".$currenturl."').loadpartitionneur();".'">';
+			foreach (Partitionneur::getAll() as $key => $value) {
+				$form .= '<option value="'.$key.'">'.$value.'</option>';
+			}
+			$form .= '</select>';
+			$form .= '<script type="text/javascript" charset="utf-8">
+				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur = function () {
+					jQuery.post(PompOView.ajax('."'fragment/pompoview-corpusview.form.select.parametre-partitionneur.php'".'),
+					{json:\'{"corpus":"'.$povc->corpus->getCorpusName().'"}\',currentid:"'.$currentid.'",currenturl:"'.$currenturl.'",partitionneur: $("#'.$currentid.'-options-form-partitionneur").val()},
+					function (data) {$("#'.$currentid.'-options-form-parametre-partitionneur").html(data);});
+					
+				};
+				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur();
+			</script>';
+			
+			$form .= '<select id="'.$currentid.'-options-form-parametre-partitionneur">';
+			
+			$form .= '</select>';
+			$form .= '<button onclick="';
+			$form .= "PompOView.UI.vars('".$currenturl."').load()";
+			$form .= ';return false;">Valider ces options</button>';
+			$form .= '</form>';
+			return $form;
+		}
+		
+		public static function makeCorpusStats(POVCorpus $povc,$currenturl,$currentid) {
+			return "<p>TODO</p>";
 		}
 	}
 	

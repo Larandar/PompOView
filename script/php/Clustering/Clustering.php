@@ -10,6 +10,14 @@
 	 */
 	abstract class Clustering {
 		
+		public static function getAll() {
+			$all = array(
+				"Clustering_Hierarchical" => "Clustering Hiérachique",
+				"Clustering_None"         => "Pas de clustering"
+			);
+			return $all;
+		}
+		
 		protected $data;
 		protected $tree;
 		protected $dist;

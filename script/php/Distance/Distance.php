@@ -5,12 +5,15 @@
 	 */
 	class Distance {
 		
-		public static $manifest = array(
-			"Distance::min" => "Minimum",
-			"Distance::max" => "Maximum",
-			"Distance::med" => "Médiane",
-			"Distance::avg" => "Moyenne"
-		);
+		public static function getAll() {
+			$all = array(
+				"Distance::min" => "Minimum",
+				"Distance::max" => "Maximum",
+				"Distance::med" => "Médiane",
+				"Distance::avg" => "Moyenne"
+			);
+			return $all;
+		}
 		
 		public static function min($a, $b){
 			return min(min($a,$b));

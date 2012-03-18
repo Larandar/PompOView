@@ -69,17 +69,17 @@
 		public function setUI($ui_name) {
 			$this->povc_ui = new $ui_name();
 		}
-		public function makeTable() {
-			return $this->povc_ui->makeTable($this);
+		public function makeTable($currenturl,$currentid) {
+			return $this->povc_ui->makeTable($this,$currenturl,$currentid);
 		}
-		public function makeCorpusContent() {
-			return $this->povc_ui->makeCorpusContent($this);
+		public function makeCorpusContent($currenturl,$currentid) {
+			return $this->povc_ui->makeCorpusContent($this,$currenturl,$currentid);
 		}
-		public function makeCorpusStats() {
-			return $this->povc_ui->makeCorpusStats($this);
+		public function makeCorpusStats($currenturl,$currentid) {
+			return $this->povc_ui->makeCorpusStats($this,$currenturl,$currentid);
 		}
-		public function makePOVCorpusForm() {
-			return $this->povc_ui->makePOVCorpusForm($this);
+		public function makePOVCorpusForm($currenturl,$currentid) {
+			return $this->povc_ui->makePOVCorpusForm($this,$currenturl,$currentid);
 		}
 		
 		public function getClustering() { return $this->cluste; }
@@ -92,7 +92,7 @@
 		
 		public static function getDefaultsOptions() {
 			if (is_file(DATA_DIR."POVCorpus_Options.json")) {
-				return Json::decode(DATA_DIR."POVCorpus_Options.json"));
+				return Json::decode(DATA_DIR."POVCorpus_Options.json");
 			} else {
 				file_put_contents(DATA_DIR."POVCorpus_Options.json",'{
 	"clustering"      : "Clustering_Hierarchical",
