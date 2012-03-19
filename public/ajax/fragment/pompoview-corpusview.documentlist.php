@@ -5,7 +5,6 @@
 	
 	$json = $_REQUEST['json'];
 	$options = $_REQUEST['options'];
-	
 	if (isset($options["corpus_sub"])) {
 		$corpus = Corpus::fromAjax($json,$options["corpus_sub"]);
 	} else {
@@ -13,13 +12,13 @@
 	}
 	
 	
-	
 	if (!$corpus->exist()) {
 		die('<p class="error">Une erreur c\'est produite car le corpus n\'a pas été charger correctement.</p>');
 	}
 	
+	$options = $_REQUEST['options'];
 	
 	$povcorpus = new POVCorpus($corpus,$options);
 	
-	echo $povcorpus->makeTable($currenturl,$currentid);
+	echo $povcorpus->makeCorpusContent($currenturl,$currentid);
 ?>

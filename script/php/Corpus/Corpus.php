@@ -16,6 +16,7 @@
 		protected $corpus_stream;
 		
 		protected $projetmode = false;
+		protected $projetroot = '';
 		
 		protected $json;
 		
@@ -46,38 +47,26 @@
 				$load = Json::decode($this->corpus_stream.self::$manifest);
 				$this->corpus_base = $load;
 				$this->corpus = $load;
-				
+				$this->filename_base = $load["filenames"];
 			}
 			
-			
 		}
 		
-		public function setParent($povc) {
-			$this->parent = $povc;
-		}
 		
-		public function getProjetsDist() {
-			if ($this->parent && $this->parent->getClustering()) {
-				return $this->parent->getClustering()->getDist();
-			} else {
-				return $this->projet_dist;
-			}
-		}
-		
-		public static function fromAjax($json) {
-			$json = Json::clear($json);
+		public static function fromAjax($json,$sub_opt = false) {
 			$corpus_opt = Json::decode($json);
 			$corpus = new Corpus(DATA_DIR.$corpus_opt["corpus"]);
-			if (!isset($corpus_opt['corpus_sub'])) {
+			
+			if ($sub_opt && !empty($sub_opt)) {
+				$corpus_opt['corpus_sub'] = $sub_opt;
+			} else {
 				$corpus_opt['corpus_sub'] = array_keys($corpus->getFileNames());
 			}
+			
 			$corpus->subCorpus($corpus_opt['corpus_sub']);
 			return $corpus;
 		}
 		
-		public function exist() {
-			return is_file($this->corpus_stream.self::$manifest);
-		}
 		
 		public function subCorpus($toKeep) {
 			$toErase = array_diff(array_keys($this->corpus["filenames"]),$toKeep);
@@ -87,56 +76,41 @@
 		
 		
 		public function emuleProjet() { 
-			$this->groupmode = true; 
+			$this->projetmode = true; 
 			$projets = new Corpus_ProjetExtractor($this);
 			
 			$this->projets = $projets->getProjets();
+			$this->projetroot = $projets->getRoot();
 			$matrice = $this->getScores();
 			
 			foreach ($projets->getProjets() as $projet => $files) {
 				$ids = array();
 				foreach ($files as $f) { $ids[] = $this->getIDOfFile($f); }
 				
-				$gname = 'G{'.join($ids,":").'}';
+				$gname = $projet;
 				$matrice = ArrayTools_Matrix::fusionValues($matrice,$ids,$this->getProjetsDist(),$gname);
 				
 				$gstring = $gname.' : { ';
 				$gstring .= join($files," : ");
 				$gstring .= ' }';
+				
 				$this->corpus_base["filenames"][$gname] = $gstring;
+				$this->corpus["filenames"][$gname]      = $gstring;
+				
 			}
 			
 			$this->corpus["corpus_scores"] = $matrice;
 		}
 		
-		public function getProjet() { return $this->projets ;}
 		
-		public function getIDOfFile($name) {
-			return array_search($name,$this->getAllFileNames());
-		}
-		public function getCorpusName() { return $this->corpus_name; }
-		
-		public function getScores() { return $this->corpus["corpus_scores"]; }
-		public function getAllFileNames() { return $this->corpus_base["filenames"]; }
-		public function getFileNames() { return $this->corpus_base["filenames"]; }
-		
-		public function getFileName($id) {
-			return $this->corpus_base["filenames"][$id];
+		public function exist() {
+			return is_file($this->corpus_stream.self::$manifest);
 		}
 		
-		public function getFile($name) {
-			return file_get_contents($this->corpus_stream.$name);
-		}
 		
 		public function getFileByID($id) {
 			$name = $this->getFileName($id);
 			return $this->getFile($name);
-		}
-		
-		public function getSignature() { return $this->corpus_base["signature"]; }
-		
-		public function isActive($filename) {
-			return in_array($filename, $this->corpus['filenames']);
 		}
 		
 		public function getLogName($name_1,$name_2) {
@@ -151,6 +125,56 @@
 			$name_2 = $this->getFileName($id_2);
 			return $this->getLogName($name_1,$name_2);
 		}
+		
+		public function getProjets() {
+			if ($this->projetmode) {
+				return $this->projets;
+			} else {
+				$projets = new Corpus_ProjetExtractor($this);
+				$this->projetroot = $projets->getRoot();
+				return $projets->getProjets();
+			}
+		}
+		
+		public function getProjetsDist() {
+			if ($this->parent && $this->parent->getClustering()) {
+				return $this->parent->getClustering()->getDist();
+			} else {
+				return $this->projet_dist;
+			}
+		}
+		
+		public function ProjetMode() { return $this->projetmode; }
+		public function getProjetsRoot() { return $this->projetroot; }
+		public function getProjet() { return $this->projets ;}
+		
+		
+		public function getCorpusName() { return $this->corpus_name; }
+		public function getScores() { return $this->corpus["corpus_scores"]; }
+		public function getSignature() { return $this->corpus_base["signature"]; }
+		
+		public function getFileNames() { return $this->corpus["filenames"]; }
+		public function getBaseFileNames() { return $this->filename_base; }
+		public function getAllFileNames() { return $this->corpus_base["filenames"]; }
+		
+		public function getNewIDOfFile($name) {
+			$i = array_search($name,$this->getFileNames()) ;
+			return $i ? $i : -1 ;
+		}
+		public function getIDOfFile($name) {
+			return array_search($name,$this->getAllFileNames());
+		}
+		
+		public function isActive($filename) { return (bool)in_array($filename, $this->corpus['filenames']); }
+		
+		public function getFileName($id) { return $this->corpus_base["filenames"][$id]; }
+		public function getFile($name) {
+			return file_get_contents($this->corpus_stream.$name);
+		}
+		
+		public function setParent($povc) { $this->parent = $povc; }
+		
+		
 	}
 	
 ?>

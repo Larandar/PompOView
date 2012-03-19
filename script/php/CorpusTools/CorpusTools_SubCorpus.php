@@ -28,7 +28,6 @@
 				}
 				$corpus["corpus_scores"][] = array_values($col);
 			}
-				
 			return json_encode($corpus);
 		}
 	}

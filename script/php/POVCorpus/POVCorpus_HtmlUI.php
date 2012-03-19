@@ -7,7 +7,7 @@
 		public static function makeTable(POVCorpus $povc,$currenturl,$currentid) {
 			$data = $povc->getData();
 			$style = $povc->getStyleSet();
-			$filenames = $povc->getFilenames();
+			$filenames = $povc->corpus->getFileNames();
 			
 			$order = $povc->getClustering()->getOrder();
 			
@@ -32,25 +32,59 @@
 			}
 			$html .= "</tbody>".PHP_EOL;
 			$html .= "</table>".PHP_EOL;
+			
+			$html .= '<script type="text/javascript" charset="utf-8">
+				
+			</script>';
+			
 			return $html;
 		}
 		
 		public static function makeCorpusContent(POVCorpus $povc,$currenturl,$currentid) {
-			$filenames = $povc->getFilenames();
+			$corpus = $povc->corpus;
+			$projets = $corpus->getProjets();
+			$proot = $corpus->getProjetsRoot();
 			$order = $povc->getClustering()->getOrder();
 			
+			$pmode = $corpus->ProjetMode();
+			
+			$format = ' <strong class="monospace">[%0'.strlen(count($order)-1).'s] </strong>';
+			
+			if ($corpus->ProjetMode()) {
+				$order  = array_flip($order);
+			} else {
+				
+			}
+			
+			$order[-1] = -1;
+			
 			$html = "";
-			$html .= '<ul style="list-style:none;">'.PHP_EOL;
-			foreach ($order as $o => $i) {
-				$html .= sprintf('<li><strong>%d</strong>: %s',$o+1,$filenames[$i]).PHP_EOL;
+			$html .= '<ul class="pretty" style="list-style:none;">'.PHP_EOL;
+			foreach ($projets as $key => $value) {
+				$html .= "<li>" . ( $pmode && in_array($key,array_flip($order)) ? sprintf($format,$order[$key]+1) : '' ) . ($key) . ' :<ul style="list-style:none;">';
+				foreach ($value as $skey => $val) {
+					$file  = str_replace($proot,'%/ ',$val);
+					$ind   = $corpus->getNewIDOfFile($val);
+					$html .= "<li>";
+					$html .= '<input type="checkbox" name="'.$currentid.'-document-list" '.($corpus->isActive($val)?'checked="checked"':'');
+					$html .= ' value="'.$corpus->getIDOfFile($val).'" />';
+					$html .= !$pmode ? sprintf($format, $corpus->isActive($val) ? ($order[$ind]+1) : -1 ) : '' ;
+					$html .= $file;
+					$html .= "</li>";
+				}
+				$html .= "</ul>"."</li>".PHP_EOL;
 			}
 			$html .= "</ul>".PHP_EOL;
+			
+			$html .= '<script type="text/javascript" charset="utf-8">
+				
+			</script>';
 			
 			return $html;
 		}
 		
 		public static function makePOVCorpusForm(POVCorpus $povc,$currenturl,$currentid) {
-			$form = '<form id="'.$currentid.'-options-form">'.PHP_EOL;
+			$form = '<form class="pretty" id="'.$currentid.'-options-form"><table>'.PHP_EOL;
 			
 			$form .= '<p><label>Mode de clustering: <select id="'.$currentid.'-options-form-clustering">';
 			foreach (Clustering::getAll() as $key => $value) {
@@ -71,12 +105,12 @@
 			}
 			$form .= '</select></label><br/>';
 			
-			$form .= '<label>Partitionneur de couleur pour le style: <select id="'.$currentid.'-options-form-partitionneur" ';
+			$form .= '<td><label>Partitionneur de couleur pour le style: </label></td><td><select id="'.$currentid.'-options-form-partitionneur" ';
 			$form .= 'onchange="'."PompOView.UI.vars('".$currenturl."').loadpartitionneur();".'">';
 			foreach (Partitionneur::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
-			$form .= '</select></label><br/>';
+			$form .= '</select></td><br/>';
 			$form .= '<script type="text/javascript" charset="utf-8">
 				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur = function () {
 					jQuery.post(PompOView.ajax('."'fragment/pompoview-corpusview.form.select.parametre-partitionneur.php'".'),
@@ -87,13 +121,11 @@
 				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur();
 			</script>';
 			
-			$form .= '<label>Paramètre du partitionneur: <select id="'.$currentid.'-options-form-parametre-partitionneur">';
+			$form .= '<td><label>Paramètre du partitionneur: </label></td><td><select id="'.$currentid.'-options-form-parametre-partitionneur">';
 			
-			$form .= '</select></label></p>';
-			$form .= '<button onclick="';
-			$form .= "PompOView.UI.vars('".$currenturl."').load()";
-			$form .= ';return false;">Valider ces options</button>';
-			$form .= '</form>';
+			$form .= '</select></p>';
+			$form .= '</table></form>';
+			
 			return $form;
 		}
 		

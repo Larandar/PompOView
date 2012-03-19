@@ -8,9 +8,13 @@ html, body {
 	min-width:1100px;
 	margin: 0; padding: 0;
 	background: #EFEFEF;
-	font-family: ExoRegular, serif;
 	font-size: 90%;
 }
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: ExoBold, serif;
+}
+
 
 header { 
 	height:80px;
@@ -45,6 +49,7 @@ img.logo {
 }
 
 .pretty {
+	font-family:ExoRegular, serif;
 	display: block;
 	margin: 5px auto;
 	text-align: center;
@@ -55,11 +60,32 @@ img.logo {
 	color: #212121;
 	border: solid 1px lightGrey;
 }
+h1.pretty, h2.pretty, h3.pretty,
+h4.pretty, h5.pretty {
+	font-family: ExoMedium, serif;
+	background:#DDD;
+}
+
+form.pretty , ul.pretty {
+	text-align:left;
+}
+div.pretty > ul.pretty, div.pretty > form.pretty {
+	background:#F0F0F0;
+}
+
+button.fat {
+	width:100%;
+}
 
 .float-left {
 	float:left;
 }
-
+strong.monospace {
+	font-family:DejaVuSansMono;
+	font-weight: bold;
+	font-style: normal;
+	
+}
 .accordion {
 	position:relative;
 }
