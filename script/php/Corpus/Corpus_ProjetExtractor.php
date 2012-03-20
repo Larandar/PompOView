@@ -46,10 +46,11 @@
 			$rootc = count($root);
 			foreach ($projets as $key => $file) {
 				$filename = join($file, "/");
-				if (!isset($fusion[$file[$rootc].'/'])) {
-					$fusion[$file[$rootc].'/'] = array();
+				$proot = '{'.$file[$rootc].'/}';
+				if (!isset($fusion[$proot])) {
+					$fusion[$proot] = array();
 				}
-				$fusion[$file[$rootc].'/'][] = $filename;
+				$fusion[$proot][] = $filename;
 			}
 			
 			$fusion = array("root" => join($root, ""), "groups" => $fusion);

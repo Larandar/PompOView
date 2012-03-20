@@ -30,9 +30,9 @@
 			
 			$this->corpus_name = str_replace( DATA_DIR, "", $corpus_path );
 			
-			if ( is_file($corpus_path.'/'.self::$manifest) ) {
+			if ( @is_file($corpus_path.'/'.self::$manifest) ) {
 				$this->corpus_stream = $corpus_path .'/';
-			} else if ( is_file('phar://'.$corpus_path .'/'.self::$manifest)){
+			} else if ( @is_file('phar://'.$corpus_path .'/'.self::$manifest)){
 				$this->corpus_stream = 'phar://'.$corpus_path .'/';
 			} else {
 				$stream = 'phar://'.$corpus_path .'/';
@@ -40,10 +40,11 @@
 				$dirs = array_filter($dirs,function ($a) { 
 					return !preg_match("/^[._]|\.json$/",$a); 
 				});
-				$this->corpus_stream = $stream.$dirs;
+				$this->corpus_stream = $stream.array_pop($dirs)."/";
 			}
 			
 			if ($this->exist()) {
+				
 				$load = Json::decode($this->corpus_stream.self::$manifest);
 				$this->corpus_base = $load;
 				$this->corpus = $load;
@@ -90,6 +91,7 @@
 				$gname = $projet;
 				$matrice = ArrayTools_Matrix::fusionValues($matrice,$ids,$this->getProjetsDist(),$gname);
 				
+				
 				$gstring = $gname.' : { ';
 				$gstring .= join($files," : ");
 				$gstring .= ' }';
@@ -99,12 +101,13 @@
 				
 			}
 			
+			
 			$this->corpus["corpus_scores"] = $matrice;
 		}
 		
 		
 		public function exist() {
-			return is_file($this->corpus_stream.self::$manifest);
+			return @is_file($this->corpus_stream.self::$manifest);
 		}
 		
 		

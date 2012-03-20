@@ -22,7 +22,7 @@
 ?>
 
 <div id="<?php echo $currentid ?>-accordion">
-	<h3 class="pretty accordion"><a href="#">Matrice de valeur</a><button style="font-size:.8em;position:absolute;right:2px;top:2px;" onclick="PompOView.UI.vars('<?php echo $currenturl ; ?>').load();return false;">Recharger</button></h3>
+	<h3 class="pretty accordion"><a href="#">Matrice de valeur</a><button style="font-size:.8em;position:absolute;right:1px;top:1px;" onclick="PompOView.UI.vars('<?php echo $currenturl ; ?>').load();return false;">Recharger</button></h3>
 	<div> 
 		<div id="<?php echo $currentid ?>-result"></div>
 	</div>

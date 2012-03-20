@@ -10,9 +10,9 @@
 		$classdir = explode('_',$name);
 		$complexfile = LIBDIR_PHP.$classdir[0].'/'.$name.'.php';
 		
-		if ( is_file($simplefile) ) {
+		if ( @is_file($simplefile) ) {
 			require_once $simplefile ;
-		} elseif ( is_file($complexfile) ) {
+		} elseif ( @is_file($complexfile) ) {
 			require_once $complexfile ;
 		} else {
 			$exception = 'Erreur Autoload : la classe "'. $name .'" n\'a pas été trouver. Cherché en ["'.$simplefile.'","'.$complexfile.'"].';

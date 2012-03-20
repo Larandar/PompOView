@@ -37,7 +37,7 @@
 		
 		public static function getFreeName($name) {
 			
-			if (!is_file(DATA_DIR.$name)) {
+			if (!@is_file(DATA_DIR.$name)) {
 				return $name;
 			} else {
 				$crc = crc32($name.microtime());

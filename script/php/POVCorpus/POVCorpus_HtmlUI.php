@@ -63,7 +63,7 @@
 			foreach ($projets as $key => $value) {
 				$html .= "<li>" . ( $pmode && in_array($key,array_flip($order)) ? sprintf($format,$order[$key]+1) : '' ) . ($key) . ' :<ul style="list-style:none;">';
 				foreach ($value as $skey => $val) {
-					$file  = str_replace($proot,'%/ ',$val);
+					$file  = str_replace($proot,'<strong class="monospace">/</strong> ',$val);
 					$ind   = $corpus->getNewIDOfFile($val);
 					$html .= "<li>";
 					$html .= '<input type="checkbox" name="'.$currentid.'-document-list" '.($corpus->isActive($val)?'checked="checked"':'');

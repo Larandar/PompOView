@@ -96,7 +96,7 @@
 		public function getFilenames() { return $this->corpus->getFilenames(); }
 		
 		public static function getDefaultsOptions() {
-			if (is_file(DATA_DIR."POVCorpus_Options.json")) {
+			if (@is_file(DATA_DIR."POVCorpus_Options.json")) {
 				return Json::decode(DATA_DIR."POVCorpus_Options.json");
 			} else {
 				file_put_contents(DATA_DIR."POVCorpus_Options.json",'{

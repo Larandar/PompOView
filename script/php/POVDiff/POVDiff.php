@@ -20,7 +20,7 @@
 		}
 		
 		public static function getDefaultsOptions() {
-			if (is_file(DATA_DIR."POVDiff_Options.json")) {
+			if (@is_file(DATA_DIR."POVDiff_Options.json")) {
 				return Json::decode(DATA_DIR."POVDiff_Options.json");
 			} else {
 				file_put_contents(DATA_DIR."POVDiff_Options.json",'{
