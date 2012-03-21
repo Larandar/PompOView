@@ -154,7 +154,13 @@
 		
 		public function getCorpusName() { return $this->corpus_name; }
 		public function getScores() { return $this->corpus["corpus_scores"]; }
-		public function getSignature() { return $this->corpus_base["signature"]; }
+		public function getSignature($val = false) { 
+			if ($val) {
+				return $this->corpus_base["signature"][$val];
+			} else {
+				return $this->corpus_base["signature"]; 
+			}
+		}
 		
 		public function getFileNames() { return $this->corpus["filenames"]; }
 		public function getBaseFileNames() { return $this->filename_base; }

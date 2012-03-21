@@ -4,6 +4,14 @@
 	 */
 	class POVDiff {
 		
+		protected $corpus;
+		protected $doc1;
+		protected $doc2;
+		
+		protected $alignement;
+		
+		protected $embellisement;
+		
 		function __construct(Corpus $corpus, $id1, $id2, $options = false) {
 			
 			$this->corpus = $corpus;
@@ -16,6 +24,18 @@
 				$options = self::getDefaultsOptions();
 			}
 			
+			$factory = new FiltrageDoc_Factory($corpus->getSignature("documentFilter"),$corpus->getSignature("segmenter"));
+			
+			$this->doc1 = $factory->make($this->doc1);
+			$this->doc2 = $factory->make($this->doc2);
+			
+			$log = $corpus->getLogNameByID($id1,$id2);
+			$cseg1 = count($this->doc1);
+			$cseg2 = count($this->doc2);
+			
+			$this->alignement = new Aligneur($log,$cseg1,$cseg2);
+			
+			$this->embellisement = new Embellissement($options["traitement"]);
 			
 		}
 		

@@ -24,7 +24,7 @@
 		}
 		
 		
-		protected $init;		
+		protected $init;
 		protected $filtres;
 		protected $segmenteur;
 		

@@ -51,8 +51,6 @@
 			
 			$this->segmenthash = $hashtable;
 			
-			$this->computeSegment();
-			
 		}
 		
 		public function compute() {
