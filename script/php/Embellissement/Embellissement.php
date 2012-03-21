@@ -26,11 +26,11 @@
 		
 		public function make($doc,$ali) {
 			
-			foreach ($doc as $key => $value) {
-				$doc[$key] = $this->apply($value,$ali[$key]);
+			foreach ($doc as $key => $val) {
+				$doc[$key] = $this->apply($val[0],$ali[$key]);
 			}
 			
-			return $doc;
+			return join($doc,"");
 		}
 		
 		protected function apply($seg,$ali) {

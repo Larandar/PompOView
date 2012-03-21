@@ -37,6 +37,9 @@
 			
 			$this->embellisement = new Embellissement($options["traitement"]);
 			
+			$this->doc1 = $this->embellisement->make($this->doc1, $this->alignement->getRelation1());
+			$this->doc2 = $this->embellisement->make($this->doc2, $this->alignement->getRelation2());
+			
 		}
 		
 		public static function getDefaultsOptions() {
