@@ -40,7 +40,17 @@
 			$this->doc1 = $this->embellisement->make($this->doc1, $this->alignement->getRelation1());
 			$this->doc2 = $this->embellisement->make($this->doc2, $this->alignement->getRelation2());
 			
+			$this->povdiffui = new POVDiff_HtmlUI();
+			
 		}
+		
+		public function makeDiff( $currenturl,$currentid ) {
+			return $this->povdiffui->makeDiff($this,$currenturl,$currentid);
+		}
+		
+		public function getDoc1() { return $this->doc1; }
+		public function getDoc2() { return $this->doc2; }
+		
 		
 		public static function getDefaultsOptions() {
 			if (@is_file(DATA_DIR."POVDiff_Options.json")) {
