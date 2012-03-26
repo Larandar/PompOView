@@ -37,8 +37,11 @@
 			
 			$this->embellisement = new Embellissement($options["traitement"]);
 			
-			$this->doc1 = $this->embellisement->make($this->doc1, $this->alignement->getRelation1());
-			$this->doc2 = $this->embellisement->make($this->doc2, $this->alignement->getRelation2());
+			$this->filename1 = $corpus->getFileName($id1);
+			$this->filename2 = $corpus->getFileName($id2);
+			
+			$this->doc1 = $this->embellisement->make($this->filename1, $this->doc1, $this->alignement->getRelation1());
+			$this->doc2 = $this->embellisement->make($this->filename2, $this->doc2, $this->alignement->getRelation2());
 			
 			$this->povdiffui = new POVDiff_HtmlUI();
 			

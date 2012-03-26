@@ -4,8 +4,8 @@
 	 */
 	class Embellissement_TraitementAlign extends Embellissement_AbstractTraitement {
 		
-		public function apply($str,$ali) {
-			return $str;
+		public function applyTo($filename,$doc,$ali) {
+			return $doc;
 		}
 		
 	}

@@ -24,21 +24,13 @@
 			
 		}
 		
-		public function make($doc,$ali) {
-			foreach ($doc as $key => $val) {
-				$doc[$key] = $this->apply($val[0],$ali[$key]);
+		public function make($filename,$doc,$ali) {
+			
+			foreach ($this->stack as $maker) {
+				$doc = $maker->applyTo($filename,$doc,$ali);
 			}
 			
 			return join($doc,"");
-		}
-		
-		protected function apply($seg,$ali) {
-			
-			foreach ($this->stack as $maker) {
-				$seg = $maker->apply($seg,$ali);
-			}
-			
-			return $seg;
 		}
 	}
 	

@@ -3,6 +3,6 @@
 	 * 
 	 */
 	abstract class Embellissement_AbstractTraitement {
-		abstract public function apply($str,$ali);
+		abstract public function applyTo($filename,$doc,$ali);
 	}
 ?>
