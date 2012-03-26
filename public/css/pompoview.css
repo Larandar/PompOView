@@ -47,6 +47,21 @@ img.logo {
 	width: 80px;
 	height:80px;
 }
+.pretty-right {
+	margin-left:100px;
+}
+
+.inline-pretty {
+	font-family:ExoRegular, serif;
+	text-align: center;
+	border-radius: 5px;
+	padding: .4em 1em;
+	font-weight: normal;
+	background:#E6E6E6;
+	color: #212121;
+	border: solid 1px lightGrey;
+	
+}
 
 .pretty {
 	font-family:ExoRegular, serif;
