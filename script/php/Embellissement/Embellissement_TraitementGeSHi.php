@@ -8,6 +8,11 @@
 			# code...
 		}
 		
+		public function applyTo($filename,$str,$ali) {
+			$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		
+		}
+		
 		public function apply($str,$ali) {
 			return $str;
 		}

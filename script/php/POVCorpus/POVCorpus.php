@@ -74,17 +74,17 @@
 		public function setUI($ui_name) {
 			$this->povc_ui = new $ui_name();
 		}
-		public function makeTable($currenturl,$currentid) {
-			return $this->povc_ui->makeTable($this,$currenturl,$currentid);
+		public function makeTable($curl,$cid) {
+			return $this->povc_ui->makeTable($this,$curl,$cid);
 		}
-		public function makeCorpusContent($currenturl,$currentid) {
-			return $this->povc_ui->makeCorpusContent($this,$currenturl,$currentid);
+		public function makeCorpusContent($curl,$cid) {
+			return $this->povc_ui->makeCorpusContent($this,$curl,$cid);
 		}
-		public function makeCorpusStats($currenturl,$currentid) {
-			return $this->povc_ui->makeCorpusStats($this,$currenturl,$currentid);
+		public function makeCorpusStats($curl,$cid) {
+			return $this->povc_ui->makeCorpusStats($this,$curl,$cid);
 		}
-		public function makePOVCorpusForm($currenturl,$currentid) {
-			return $this->povc_ui->makePOVCorpusForm($this,$currenturl,$currentid);
+		public function makePOVCorpusForm($curl,$cid) {
+			return $this->povc_ui->makePOVCorpusForm($this,$curl,$cid);
 		}
 		
 		public function getClustering() { return $this->cluste; }

@@ -4,17 +4,18 @@
 	 */
 	class POVDiff_HtmlUI {
 		
-		public static function makeDiff(POVDiff $povdiff, $currenturl, $currentid) {
-			$html = '<table style="">';
+		public static function makeDiff(POVDiff $povdiff, $curl, $cid) {
+			$html = '<div class="diff-code">';
 			
-			$html .= '<td class="align-left"  id="'.$currentid.'-alignleft">';
+			$html .= '<div class="align-left"  id="'.$cid.'-alignleft">';
 			$html .= $povdiff->getDoc1();
-			$html .= '</td>';
+			$html .= '</div>';
 			
-			$html .= '<td class="align-right" id="'.$currentid.'-alignright">';
+			$html .= '<div class="align-right" id="'.$cid.'-alignright">';
 			$html .= $povdiff->getDoc2();
-			$html .= '</td>';
-			$html .= "</table>";
+			$html .= '</div>';
+			
+			$html .= "</div>";
 			return $html;
 		}
 	}

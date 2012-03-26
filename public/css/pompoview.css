@@ -73,13 +73,40 @@ div.pretty > ul.pretty, div.pretty > form.pretty {
 	background:#F0F0F0;
 }
 
+.diff-code {
+	position:relative;
+	height:500px;
+	padding:0;
+	width:100%;
+	font: 75% DejaVuSansMono , sans-serif;
+	text-align:left;
+	border-radius: 5px;
+	background:#E7E7E7;
+}
+.diff-code .align-left, .diff-code .align-right {
+	display:block;
+	height:450px;
+	overflow:scroll;
+	padding:20px;
+	margin:0.5%;
+	width:46%; 
+	border-radius: 5px;
+	background:#F2F2F2;
+}
+.align-right {
+	position:absolute;
+	right:0px; top:0px;
+}
+
+.align-left {
+	position:absolute;
+	left:0px; top:0px;
+}
+
 button.fat {
 	width:100%;
 }
 
-.float-left {
-	float:left;
-}
 strong.monospace {
 	font-family:DejaVuSansMono;
 	font-weight: bold;

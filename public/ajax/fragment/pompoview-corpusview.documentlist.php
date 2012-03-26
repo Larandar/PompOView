@@ -1,7 +1,7 @@
 <?php 
 	////
-	$currenturl = $_REQUEST['currenturl'];
-	$currentid = $_REQUEST['currentid'] ;
+	$curl = $_REQUEST['curl'];
+	$cid = $_REQUEST['cid'] ;
 	
 	$json = $_REQUEST['json'];
 	$options = $_REQUEST['options'];
@@ -20,5 +20,5 @@
 	
 	$povcorpus = new POVCorpus($corpus,$options);
 	
-	echo $povcorpus->makeCorpusContent($currenturl,$currentid);
+	echo $povcorpus->makeCorpusContent($curl,$cid);
 ?>

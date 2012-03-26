@@ -13,7 +13,8 @@
 		);
 		
 		public function apply($str,$ali) {
-			return preg_replace($this->regin, $this->regout, $str);
+			$str =  htmlentities( $str ) ;
+			return preg_replace($this->regin, $this->regout, $str );
 		}
 		
 	}

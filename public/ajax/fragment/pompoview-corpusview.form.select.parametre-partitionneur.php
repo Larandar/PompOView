@@ -1,7 +1,7 @@
 <?php
 	////
-	$currenturl = $_REQUEST['currenturl'];
-	$currentid = $_REQUEST['currentid'] ;
+	$curl = $_REQUEST['curl'];
+	$cid = $_REQUEST['cid'] ;
 	
 	$partitionneur = $_REQUEST['partitionneur'];
 	

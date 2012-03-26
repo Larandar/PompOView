@@ -44,8 +44,8 @@
 			
 		}
 		
-		public function makeDiff( $currenturl,$currentid ) {
-			return $this->povdiffui->makeDiff($this,$currenturl,$currentid);
+		public function makeDiff( $curl,$cid ) {
+			return $this->povdiffui->makeDiff($this,$curl,$cid);
 		}
 		
 		public function getDoc1() { return $this->doc1; }

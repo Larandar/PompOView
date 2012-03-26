@@ -22,8 +22,8 @@
 		}
 		
 		public function compute() {
-			$this->segrel1 = array_fill(0,$this->numseg1-1,false);
-			$this->segrel2 = array_fill(0,$this->numseg2-1,false);
+			$this->segrel1 = array_fill(0,$this->numseg1,false);
+			$this->segrel2 = array_fill(0,$this->numseg2,false);
 		}
 		
 		public function getRelation1() { return $this->segrel1 ; }

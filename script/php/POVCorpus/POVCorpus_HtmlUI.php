@@ -4,7 +4,7 @@
 	 */
 	class POVCorpus_HtmlUI {
 		
-		public static function makeTable(POVCorpus $povc,$currenturl,$currentid) {
+		public static function makeTable(POVCorpus $povc,$curl,$cid) {
 			$data = $povc->getData();
 			$style = $povc->getStyleSet();
 			$filenames = $povc->corpus->getFileNames();
@@ -26,7 +26,7 @@
 				$html .= sprintf('<th><abbr title="%s">%s</abbr></th>',htmlentities($filenames[$i]),$o+1);
 				foreach ( $order as $j ) {
 					$cour = $data[$i][$j];
-					$html .= sprintf('<td style="%s"><abbr title="%f">%.2f</abbr></td>',$style->getStyleOf($cour),$cour,$cour);
+					$html .= sprintf('<td style="%s" onclick="PompOView.UI.vars(\'%s\').openDiff(%d,%d)"><abbr title="%f">%.2f</abbr></td>',$style->getStyleOf($cour),$curl,$i,$j,$cour,$cour);
 				}
 				$html .= "</tr>".PHP_EOL;
 			}
@@ -40,7 +40,7 @@
 			return $html;
 		}
 		
-		public static function makeCorpusContent(POVCorpus $povc,$currenturl,$currentid) {
+		public static function makeCorpusContent(POVCorpus $povc,$curl,$cid) {
 			$corpus = $povc->corpus;
 			$projets = $corpus->getProjets();
 			$proot = $corpus->getProjetsRoot();
@@ -66,7 +66,7 @@
 					$file  = str_replace($proot,'<strong class="monospace">/</strong> ',$val);
 					$ind   = $corpus->getNewIDOfFile($val);
 					$html .= "<li>";
-					$html .= '<input type="checkbox" name="'.$currentid.'-document-list" '.($corpus->isActive($val)?'checked="checked"':'');
+					$html .= '<input type="checkbox" name="'.$cid.'-document-list" '.($corpus->isActive($val)?'checked="checked"':'');
 					$html .= ' value="'.$corpus->getIDOfFile($val).'" />';
 					$html .= !$pmode ? sprintf($format, $corpus->isActive($val) ? ($order[$ind]+1) : -1 ) : '' ;
 					$html .= $file;
@@ -83,45 +83,45 @@
 			return $html;
 		}
 		
-		public static function makePOVCorpusForm(POVCorpus $povc,$currenturl,$currentid) {
-			$form = '<form class="pretty" id="'.$currentid.'-options-form"><table>'.PHP_EOL;
+		public static function makePOVCorpusForm(POVCorpus $povc,$curl,$cid) {
+			$form = '<form class="pretty" id="'.$cid.'-options-form"><table>'.PHP_EOL;
 			
-			$form .= '<p><label>Mode de clustering: <select id="'.$currentid.'-options-form-clustering">';
+			$form .= '<p><label>Mode de clustering: <select id="'.$cid.'-options-form-clustering">';
 			foreach (Clustering::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
 			$form .= '</select></label><br/>';
 			
-			$form .= '<label>Distance adoptée pour le clustering: <select id="'.$currentid.'-options-form-clustering-distance">';
+			$form .= '<label>Distance adoptée pour le clustering: <select id="'.$cid.'-options-form-clustering-distance">';
 			foreach (Distance::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
 			$form .= '</select></label></p>';
 			
 			
-			$form .= '<p><label>Style de coloration de la matrice: <select id="'.$currentid.'-options-form-styleset">';
+			$form .= '<p><label>Style de coloration de la matrice: <select id="'.$cid.'-options-form-styleset">';
 			foreach (StyleSet::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
 			$form .= '</select></label><br/>';
 			
-			$form .= '<td><label>Partitionneur de couleur pour le style: </label></td><td><select id="'.$currentid.'-options-form-partitionneur" ';
-			$form .= 'onchange="'."PompOView.UI.vars('".$currenturl."').loadpartitionneur();".'">';
+			$form .= '<td><label>Partitionneur de couleur pour le style: </label></td><td><select id="'.$cid.'-options-form-partitionneur" ';
+			$form .= 'onchange="'."PompOView.UI.vars('".$curl."').loadpartitionneur();".'">';
 			foreach (Partitionneur::getAll() as $key => $value) {
 				$form .= '<option value="'.$key.'">'.$value.'</option>';
 			}
 			$form .= '</select></td><br/>';
 			$form .= '<script type="text/javascript" charset="utf-8">
-				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur = function () {
+				PompOView.UI.vars("'.$curl.'").loadpartitionneur = function () {
 					jQuery.post(PompOView.ajax('."'fragment/pompoview-corpusview.form.select.parametre-partitionneur.php'".'),
-					{json:\'{"corpus":"'.$povc->corpus->getCorpusName().'"}\',currentid:"'.$currentid.'",currenturl:"'.$currenturl.'",partitionneur: $("#'.$currentid.'-options-form-partitionneur").val()},
-					function (data) {$("#'.$currentid.'-options-form-parametre-partitionneur").html(data);});
+					{json:\'{"corpus":"'.$povc->corpus->getCorpusName().'"}\',cid:"'.$cid.'",curl:"'.$curl.'",partitionneur: $("#'.$cid.'-options-form-partitionneur").val()},
+					function (data) {$("#'.$cid.'-options-form-parametre-partitionneur").html(data);});
 					
 				};
-				PompOView.UI.vars("'.$currenturl.'").loadpartitionneur();
+				PompOView.UI.vars("'.$curl.'").loadpartitionneur();
 			</script>';
 			
-			$form .= '<td><label>Paramètre du partitionneur: </label></td><td><select id="'.$currentid.'-options-form-parametre-partitionneur">';
+			$form .= '<td><label>Paramètre du partitionneur: </label></td><td><select id="'.$cid.'-options-form-parametre-partitionneur">';
 			
 			$form .= '</select></p>';
 			$form .= '</table></form>';
@@ -129,7 +129,7 @@
 			return $form;
 		}
 		
-		public static function makeCorpusStats(POVCorpus $povc,$currenturl,$currentid) {
+		public static function makeCorpusStats(POVCorpus $povc,$curl,$cid) {
 			return "<p>TODO</p>";
 		}
 	}

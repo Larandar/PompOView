@@ -25,7 +25,6 @@
 		}
 		
 		public function make($doc,$ali) {
-			
 			foreach ($doc as $key => $val) {
 				$doc[$key] = $this->apply($val[0],$ali[$key]);
 			}

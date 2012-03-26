@@ -1,20 +1,28 @@
 <?php
 	//
-	$currenturl = $_REQUEST['currenturl'];
-	$currentid = $_REQUEST['currentid'] ;
-	
-	$json = $_REQUEST['json'];
-	//$corpus = Corpus::fromAjax($json); 
-	
-	$corpus = new Corpus(DATA_DIR."corpus_projet.tar.gz");
-	
-	echo POV_HtmlUI::getCloseButton($currenturl,$currentid);
+	$curl = $_REQUEST['curl'];
+	$cid = $_REQUEST['cid'] ;
 ?>
-<h2>Comparaison de document deux a deux</h2>
-<pre><?php print_r($_REQUEST) ?></pre>
-<pre><?php print_r($corpus) ?></pre>
-<pre><?php echo $corpus->getLogNameByID(0,1); ?></pre>
-
+<div>
+	<h2 class="pretty" >Comparaison d'un corpus</h2>
+	<?php echo POV_HtmlUI::getCloseButton($curl,$cid); ?>
+</div>
+<?php
+	$json = $_REQUEST['json'] ;
+	$corpus = Corpus::fromAjax($json); 
+	
+	if (!$corpus->exist()) {
+		die('<p class="error">Une erreur c\'est produite car le corpus n\'a pas été charger correctement.</p>');
+	}
+	
+	$json = Json::decode($json);
+	
+	$povdiff = new POVDiff($corpus,$json[1],$json[2]);
+	
+?>
+<div class="pretty">
+	<?php echo $povdiff->makeDiff($curl,$cid) ; ?>
+</div>
 <script type="text/javascript" charset="utf-8">
 	PompOView.UI.initButton();
 </script>
