@@ -5,6 +5,7 @@
 	
 	
 	// Ajouter en fin de SERVER_URL le chemin a partir du serveur web
+	$protocol = ( !isset($_SERVER['HTTPS'] ? "https" : "http" );
 	define( "SERVER_URL"   , 'http://'.$_SERVER["SERVER_NAME"].DS."PompOView/" );
 	
 	//

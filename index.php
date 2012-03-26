@@ -6,7 +6,7 @@
 	
 	switch ( $route->command->getName() ) {
 		// >> Règles basiques >>
-		case "pompoview":
+		case "@":
 			include BASE_DIR."public/master.php";
 			break;
 			
@@ -26,7 +26,7 @@
 		// >> Règles de redirections >>
 		
 		case "":
-			header("Location: ".SERVER_URL."pompoview/");
+			header("Location: ".SERVER_URL."@/");
 			break;
 			
 		default:
