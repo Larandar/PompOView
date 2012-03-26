@@ -12,7 +12,7 @@
 			"&nbsp;", "&nbsp;&nbsp;", "</br>"
 		);
 		
-		public function applyTo($filename,$doc,$ali) {
+		public function applyTo($filename,$doc,$ali,$side) {
 			foreach ($doc as $key => $str) {
 				$doc[$key] = $this->applyOne($str[0],$ali[$key]);
 			}

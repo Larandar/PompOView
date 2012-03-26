@@ -15,19 +15,19 @@
 		
 		protected $stack = array();
 		
-		public function __construct(array $traitement) {
+		public function __construct(array $traitement,$url) {
 			
 			foreach ($traitement as $t) {
 				$traitement = Embellissement::getTraitement($t);
-				$this->stack[] = new $traitement();
+				$this->stack[] = new $traitement($url);
 			}
 			
 		}
 		
-		public function make($filename,$doc,$ali) {
+		public function make($filename,$doc,$ali,$side) {
 			
 			foreach ($this->stack as $maker) {
-				$doc = $maker->applyTo($filename,$doc,$ali);
+				$doc = $maker->applyTo($filename,$doc,$ali,$side);
 			}
 			
 			return join($doc,"");

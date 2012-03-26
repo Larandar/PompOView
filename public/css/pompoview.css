@@ -5,7 +5,7 @@ header * {
 	-webkit-margin-end: 0;
 }
 html, body {
-	min-width:1100px;
+	min-width:1000px;
 	margin: 0; padding: 0;
 	background: #EFEFEF;
 	font-size: 90%;
@@ -174,6 +174,18 @@ p.return.error {
 	color: #D8000C;
 	background-color: #FFBABA;
 }
+
+div.copycat {
+	position:relative;
+	padding: .4em;
+	border: 1px solid #D8000C;
+	background-color: #FFBABA;
+	border-radius:5px;
+}
+div.copycat span.info {
+	position:absolute;
+}
+
 
 input.button {
 	width: 200px;
