@@ -25,20 +25,26 @@
 			$sizex = $sizex ? $sizex : $this->info[0];
 			$sizex = $sizex ? $sizex : $this->info[0];
 			
-			if ($this->info[0] == $sizex) {
+			if ($this->info[0] != $sizex) {
 				$this->order = false;
 				$this->size  = array("x"=>$sizey,"y"=>$sizex);
 			} else {
 				$this->order = true;
 				$this->size  = array("x"=>$sizex,"y"=>$sizey);
 			}
+			
+			print_r($this->size);
 		}
 		
 		public function getValue($x,$y) {
 			$nx = $this->order ? $x : $y;
 			$ny = $this->order ? $y : $x;
 			
-			return (bool) @imagecolorat($this->image, $nx, $ny);
+			if ($nx > $this->size["x"] || $ny > $this->size["y"]) {
+				printf("%d x %d hors limite (%d x %d)", $nx, $ny, $this->size["x"] , $this->size["y"] );
+			}
+			
+			return (bool) imagecolorat($this->image, $nx, $ny);
 		}
 		
 		

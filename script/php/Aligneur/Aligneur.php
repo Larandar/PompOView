@@ -22,7 +22,7 @@
 		}
 		
 		public function compute() {
-			$log = new LogImage($this->logfile);
+			$log = new LogImage($this->logfile, $this->numseg1, $this->numseg2);
 			
 			$groups = array();
 			$x = 0; $y = 0;
@@ -43,7 +43,6 @@
 						$x++ ; $y++;
 						$group["x"][] = $x;
 						$group["y"][] = $y;
-						$group["k"][] = $g;
 					}
 					$groups[$g++] = $group;
 				}
@@ -55,9 +54,11 @@
 			$this->segrel2 = array_fill(0,$this->numseg2,array(false));
 			
 			foreach ($groups as $g => $values) {
-				foreach ($values["k"] as $key => $_) {
-					$this->segrel1[$values["x"][$key]] = array(true,$g);
-					$this->segrel2[$values["y"][$key]] = array(true,$g);
+				foreach ($values["x"] as $x) {
+					$this->segrel1[$x] = array(true,$g);
+				}
+				foreach ($values["y"] as $y) {
+					$this->segrel2[$y] = array(true,$g);
 				}
 			}
 			
