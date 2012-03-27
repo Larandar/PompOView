@@ -20,7 +20,9 @@
 	$povdiff = new POVDiff($corpus,$json[1],$json[2]);
 	
 ?>
-<h3 class="pretty"><?php echo $corpus->getFileName($json[1]) ; ?> VS <?php echo $corpus->getFileName($json[2]) ; ?></h3>
+<!--
+	<h3 class="pretty"><?php echo $corpus->getFileName($json[1]) ; ?> VS <?php echo $corpus->getFileName($json[2]) ; ?></h3>
+-->
 <div class="pretty">
 	<?php echo $povdiff->makeDiff($curl,$cid) ; ?>
 </div>
