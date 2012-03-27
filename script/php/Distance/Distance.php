@@ -28,13 +28,13 @@
 		}
 		
 		public static function med($a, $b = false){
-			if (!$b) { $b = $a; }
+			if (!$b) { $b = array(); }
 			if ((count($a)+count($b)) == 0) { throw new Exception("Empty pototoes for null distance");}
 			return (Distance::min($a,$b) + Distance::max($a,$b))/2;
 		}
 		
 		public static function avg($a, $b = false) {
-			if (!$b) { $b = $a; }
+			if (!$b) { $b = array(); }
 			if ((count($a)+count($b)) == 0) {
 				return 0;
 			} else {

@@ -63,8 +63,6 @@
 			
 			if ($corpus->ProjetMode()) {
 				$order  = array_flip($order);
-			} else {
-				
 			}
 			
 			$order[-1] = -1;

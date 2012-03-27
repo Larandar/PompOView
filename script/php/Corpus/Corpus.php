@@ -158,6 +158,7 @@
 		
 		public function getCorpusName() { return $this->corpus_name; }
 		public function getScores() { return $this->corpus["corpus_scores"]; }
+		public function getBaseScores() { return $this->corpus_base["corpus_scores"]; }
 		public function getSignature($val = false) { 
 			if ($val) {
 				return $this->corpus_base["signature"][$val];
