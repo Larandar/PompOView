@@ -40,10 +40,6 @@
 			$nx = $this->order ? $x : $y;
 			$ny = $this->order ? $y : $x;
 			
-			if ($nx > $this->size["x"] || $ny > $this->size["y"]) {
-				printf("%d x %d hors limite (%d x %d)", $nx, $ny, $this->size["x"] , $this->size["y"] );
-			}
-			
 			return (bool) imagecolorat($this->image, $nx, $ny);
 		}
 		
