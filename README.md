@@ -18,6 +18,7 @@
 ## Version history
 
 1.0 ) First release
+
 	* Corpus exploration in several height (Corpus, Projects or Documents)
 	* Apache configuration
 	* UI Using jQuery
