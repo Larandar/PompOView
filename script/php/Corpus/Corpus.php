@@ -86,7 +86,11 @@
 			
 			foreach ($projets->getProjets() as $projet => $files) {
 				$ids = array();
-				foreach ($files as $f) { $ids[] = $this->getIDOfFile($f); }
+				foreach ($files as $f) { 
+					if ($this->isActive($f)) {
+						$ids[] = $this->getNewIDOfFile($f);
+					}
+				}
 				
 				$gname = $projet;
 				$matrice = ArrayTools_Matrix::fusionValues($matrice,$ids,$this->getProjetsDist(),$gname);
@@ -168,13 +172,13 @@
 		
 		public function getNewIDOfFile($name) {
 			$i = array_search($name,$this->getFileNames()) ;
-			return $i ? $i : -1 ;
+			return $i !== false ? $i : false ;
 		}
 		public function getIDOfFile($name) {
 			return array_search($name,$this->getAllFileNames());
 		}
 		
-		public function isActive($filename) { return (bool)in_array($filename, $this->corpus['filenames']); }
+		public function isActive($filename) { return $this->getNewIDOfFile($filename) !== false; }
 		
 		public function getFileName($id) { return $this->corpus_base["filenames"][$id]; }
 		public function getFile($name) {

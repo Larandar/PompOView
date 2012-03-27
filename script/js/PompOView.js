@@ -92,17 +92,25 @@ PompOView.UI.initDiffView = function ( url , id ) {
 			var el1 = $(id1);
 			var el2 = $(id2);
 			
+			var o1 = el1.parent().scrollTop();
+			var o2 = el2.parent().scrollTop();
+			
+			
 			el1.parent().scrollTop(0);
 			el2.parent().scrollTop(0);
 			
 			var dist1 = el1.offset().top - el1.parent().offset().top;
 			var dist2 = el2.offset().top - el2.parent().offset().top;
 			
+			el1.parent().scrollTop(o1);
+			el2.parent().scrollTop(o2);
+			
+			
 			var ajust1 =  el1.height()/2 - 500/2;
 			var ajust2 =  el2.height()/2 - 500/2;
 			
-			el1.parent().scrollTop(dist1 + ajust1);
-			el2.parent().scrollTop(dist2 + ajust2);
+			el1.parent().animate({scrollTop : (dist1 + ajust1)},500);
+			el2.parent().animate({scrollTop : (dist2 + ajust2)},500);
 			
 		}
 	}

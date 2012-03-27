@@ -25,6 +25,13 @@
 				$html .= "<tr>";
 				$html .= sprintf('<th><abbr title="%s">%s</abbr></th>',htmlentities($filenames[$i]),$o+1);
 				foreach ( $order as $j ) {
+					
+					// TODO Version moi crade... Vraiment !!
+					if (!isset($data[$i][$j]) ) { 
+						$html .= sprintf('<td style="%s" ></td>',$style->getStyleOf(-1));
+						continue; 
+					};
+					
 					$cour = $data[$i][$j];
 					
 					$action = (!$povc->corpus->ProjetMode() && $i != $j ) ? sprintf(

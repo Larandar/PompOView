@@ -8,7 +8,7 @@
 		protected $projets;
 		
 		public function __construct(Corpus $corpus) {
-			$this->filenames = $corpus->getBaseFileNames();
+			$this->filenames = $corpus->getFileNames();
 			
 			$this->compute();
 		}

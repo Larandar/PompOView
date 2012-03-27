@@ -17,17 +17,19 @@
 		
 		public static function min($a, $b = false){
 			if (!$b) { $b = $a; }
-			if ((count($a)+count($b)) == 0) { throw new Exception("OUPS!!");}
+			if ((count($a)+count($b)) == 0) { throw new Exception("Empty pototoes for null distance");}
 			return min(array_merge($a,$b));
 		}
 		
 		public static function max($a, $b = false){
 			if (!$b) { $b = $a; }
+			if ((count($a)+count($b)) == 0) { throw new Exception("Empty pototoes for null distance");}
 			return max(array_merge($a, $b));
 		}
 		
 		public static function med($a, $b = false){
 			if (!$b) { $b = $a; }
+			if ((count($a)+count($b)) == 0) { throw new Exception("Empty pototoes for null distance");}
 			return (Distance::min($a,$b) + Distance::max($a,$b))/2;
 		}
 		

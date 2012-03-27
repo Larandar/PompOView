@@ -38,7 +38,9 @@
 			$nx = $this->order ? $x : $y;
 			$ny = $this->order ? $y : $x;
 			
-			return (bool) imagecolorat($this->image, $nx, $ny);
+			$in = $nx < $this->size["x"] && $ny < $this->size["y"];
+			
+			return $in && imagecolorat($this->image, $nx, $ny);
 		}
 		
 		
