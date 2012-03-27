@@ -24,10 +24,10 @@
 			
 		}
 		
-		public function make($filename,$doc,$ali,$side) {
+		public function make($filename,$doc,$ali) {
 			
 			foreach ($this->stack as $maker) {
-				$doc = $maker->applyTo($filename,$doc,$ali,$side);
+				$doc = $maker->applyTo($filename,$doc,$ali);
 			}
 			
 			return join($doc,"");

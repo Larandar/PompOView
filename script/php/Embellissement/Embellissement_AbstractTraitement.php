@@ -10,6 +10,6 @@
 			$this->url = $url;
 		}
 		
-		abstract public function applyTo($filename,$doc,$ali,$side);
+		abstract public function applyTo($filename,$doc,$ali);
 	}
 ?>

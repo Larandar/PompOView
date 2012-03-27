@@ -124,8 +124,8 @@
 		}
 		
 		public function getLogNameByID($id_1,$id_2) {
-			$name_1 = $this->getFileName($id_1);
-			$name_2 = $this->getFileName($id_2);
+			$name_1 = $this->getFileName(min($id_1,$id_2));
+			$name_2 = $this->getFileName(max($id_1,$id_2));
 			return $this->getLogName($name_1,$name_2);
 		}
 		

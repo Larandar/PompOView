@@ -184,6 +184,8 @@ div.copycat {
 }
 div.copycat span.info {
 	position:absolute;
+	top:5px; right:5px;
+	color:#D8000C;
 }
 
 

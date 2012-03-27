@@ -8,7 +8,7 @@
 			__autoload("GeSHi");
 		}
 		
-		public function applyTo($filename,$doc,$ali,$side) {
+		public function applyTo($filename,$doc,$ali) {
 			
 			$ext = pathinfo($filename, PATHINFO_EXTENSION);
 			$lang = self::$langs[$ext];

@@ -81,6 +81,19 @@ PompOView.UI.initCorpusView = function ( url , id , js ) {
 	$('#'+id+'-accordion h3.accordion').first().next().show();
 }
 
+PompOView.UI.initDiffView = function ( url , id ) {
+	PompOView.UI.vars_map[url] = {
+		"url" : url,
+		"id"  : id,
+		align : function ( G ) {
+			var str  = "Alignement : " + G + "\n";
+			    str += "De " + G + " vers " + G;
+			alert(str);
+		}
+	}
+	
+}
+
 PompOView.UI.openTab = function (url,val,js) {
 	url = url.replace(/"/g,"%22");
 	if ( PompOView.UI.isLoaded(url) ) {

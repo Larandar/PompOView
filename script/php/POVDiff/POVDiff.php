@@ -51,8 +51,8 @@
 			$this->filename1 = $this->corpus->getFileName($this->id1);
 			$this->filename2 = $this->corpus->getFileName($this->id2);
 			
-			$this->doc1 = $this->embellisement->make($this->filename1, $this->doc1, $this->alignement->getRelation1(),"left");
-			$this->doc2 = $this->embellisement->make($this->filename2, $this->doc2, $this->alignement->getRelation2(),"right");
+			$this->doc1 = $this->embellisement->make($this->filename1, $this->doc1, $this->alignement->getRelation1());
+			$this->doc2 = $this->embellisement->make($this->filename2, $this->doc2, $this->alignement->getRelation2());
 			
 		}
 		

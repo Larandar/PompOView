@@ -26,7 +26,11 @@
 				$html .= sprintf('<th><abbr title="%s">%s</abbr></th>',htmlentities($filenames[$i]),$o+1);
 				foreach ( $order as $j ) {
 					$cour = $data[$i][$j];
-					$html .= sprintf('<td style="%s" onclick="PompOView.UI.vars(\'%s\').openDiff(%d,%d)"><abbr title="%f">%.2f</abbr></td>',$style->getStyleOf($cour),$curl,$i,$j,$cour,$cour);
+					
+					$action = (!$povc->corpus->ProjetMode() && $i != $j ) ? sprintf(
+						'onclick="PompOView.UI.vars(\'%s\').openDiff(%d,%d)"',$curl,$i,$j) : "";
+					
+					$html .= sprintf('<td style="%s" %s><abbr title="%f">%.2f</abbr></td>',$style->getStyleOf($cour),$action,$cour,$cour);
 				}
 				$html .= "</tr>".PHP_EOL;
 			}

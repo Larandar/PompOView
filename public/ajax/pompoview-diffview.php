@@ -25,4 +25,5 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 	PompOView.UI.initButton();
+	PompOView.UI.initDiffView("<?php echo $curl; ?>","<?php echo $cid; ?>");
 </script>
