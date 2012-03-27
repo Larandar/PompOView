@@ -4,7 +4,7 @@
 	 */
 	class Embellissement_TraitementAlign extends Embellissement_AbstractTraitement {
 		
-		public function applyTo($filename,$doc,$ali) {
+		public function applyTo($filename,$doc,$ali,$side) {
 			
 			foreach ($doc as $key => $value) {
 				$curt = $ali[$key][0];
@@ -13,8 +13,8 @@
 				$suiv = $curt && ( !isset($ali[$key+1]) || !$ali[$key+1][0] || $ali[$key+1][1] != $ali[$key][1] );
 				
 				$prefix = ! $prev ? '' : sprintf( 
-					'<div class="copycat" onclick="PompOView.UI.vars(\'%s\').align(%d)">', 
-					$this->url, $ali[$key][1] 
+					'<div class="copycat" id="%s-%d-%s" onclick="PompOView.UI.vars(\'%s\').align(%d)">', 
+					$this->id, $ali[$key][1], $side, $this->url,  $ali[$key][1] 
 				);
 				$suffix = ! $suiv ? '' : sprintf(
 					'<span class="info">G:%d</span></div>',

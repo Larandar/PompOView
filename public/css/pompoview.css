@@ -177,7 +177,8 @@ p.return.error {
 
 div.copycat {
 	position:relative;
-	padding: .4em;
+	padding: 0 1em;
+	margin: 0 -1em;
 	border: 1px solid #D8000C;
 	background-color: #FFBABA;
 	border-radius:5px;

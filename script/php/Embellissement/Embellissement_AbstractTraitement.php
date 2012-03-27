@@ -6,10 +6,11 @@
 		protected $url;
 		protected $side = "left";
 		
-		public function __construct($url) {
+		public function __construct($url,$id) {
 			$this->url = $url;
+			$this->id = $id;
 		}
 		
-		abstract public function applyTo($filename,$doc,$ali);
+		abstract public function applyTo($filename,$doc,$ali,$side);
 	}
 ?>
