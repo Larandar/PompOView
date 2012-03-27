@@ -32,8 +32,6 @@
 				$this->order = true;
 				$this->size  = array("x"=>$sizex,"y"=>$sizey);
 			}
-			
-			print_r($this->size);
 		}
 		
 		public function getValue($x,$y) {
